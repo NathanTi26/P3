@@ -128,7 +128,6 @@ function showForm(){
 
 
 
-
 // Box connexion
 
 const boutonLog = document.getElementById("btn-log");
@@ -139,12 +138,15 @@ boutonLog.addEventListener("click", async function(e) {
   
   let user = {
 
-    email: document.getElementsByName("email"),
-    password: document.getElementsByName("password")
+    email: document.getElementById("email"),
+    password: document.getElementById("password")
 
   };
   
-  
+  console.log(document.getElementById("email"))
+
+
+
   let res = await fetch('http://localhost:5678/api/users/login', {
     method: 'POST',
     headers: {
@@ -157,7 +159,7 @@ boutonLog.addEventListener("click", async function(e) {
 
   console.log(result);
 
-  localStorage.set('token',result);
+  localStorage.set('token', result);
 
 })
 
