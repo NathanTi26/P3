@@ -142,10 +142,10 @@ boutonLog.addEventListener("click", async function(e) {
 
   e.preventDefault();
   
-  let user = {
+  const user = {
 
-    email: document.getElementsByName("email"),
-    password: document.getElementsByName("password")
+    email: document.getElementsByName("email").value,
+    password: document.getElementsByName("password").value
 
   };
   
@@ -165,6 +165,23 @@ boutonLog.addEventListener("click", async function(e) {
   localStorage.set('token',result);
 
 })
+
+const token = localStorage.getItem("token");
+console.log(token);
+const headerDisplay = () => {
+
+    if (localStorage.token) {
+
+      document.querySelector('.box-change').classList.toggle('visible');
+
+    }
+    
+    else {
+      showErrorMsg("Token non reconnu");
+    }
+}
+
+
 
 
 // Changement de la couleur des filtres 
