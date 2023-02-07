@@ -300,7 +300,7 @@ footer nav ul {
 	height: 0px;
 	margin: auto;
 	visibility: hidden;
-	
+
 }
 
 .connexion-box h2 {
@@ -316,7 +316,7 @@ footer nav ul {
 	font-size: 14px;
 	line-height: 16px;
 	text-decoration-line: underline;
-	
+
 	color: #3D3D3D;
 }
 
@@ -331,59 +331,60 @@ footer nav ul {
 
 }
 
-.log-name  {
+.log-name {
 
 
-		font-size: 14px;
-		font-weight: 500;
-		line-height: 16px;
-		letter-spacing: 0em;
-		text-align: left;
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 16px;
+	letter-spacing: 0em;
+	text-align: left;
 
 
 }
+
 input[type="submit"].log-btn {
 
 	width: 179px;
 	height: 36px;
 	margin: 37px 0px 28px 0px;
-	border: 1px ;
+	border: 1px;
 
 }
 
-.hiddensection.hidden  {
+.hiddensection.hidden {
 
 	height: 0;
 	visibility: hidden;
 }
 
 
-.connexion-box.visible{
+.connexion-box.visible {
 
-visibility: visible;
-height: 700px;
+	visibility: visible;
+	height: 700px;
 
 }
 
-button.btn-show  {
+button.btn-show {
 
 
-font-family: 'Work Sans';
-font-style: normal;
-font-weight: 400;
-font-size: 16px;
-line-height: 19px;
-background-color: transparent;
-border: 1px transparent;
+	font-family: 'Work Sans';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 19px;
+	background-color: transparent;
+	border: 1px transparent;
 
-text-align: center;
+	text-align: center;
 
 }
 
 
 button.btn-show a:hover {
 
-color: #B1663C;
+	color: #B1663C;
 
 }
 
@@ -398,17 +399,21 @@ button.btn-show a {
 	font-size: 16px;
 }
 
-.box-filtre{
+.box-filtre {
 
-width: 519px;
-height: 37pxpx;
-margin: auto;
-justify-items: center;
-
-margin-bottom: 51px;
+	max-width: 550px;
+	height: 37px;
+	margin: auto;
+	justify-items: center;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	margin-bottom: 51px;
+	justify-content: space-between;
+	gap: 10px;
 }
 
-button.btn-filtre{
+button.btn-filtre {
 
 
 	height: 37px;
@@ -426,21 +431,334 @@ button.btn-filtre{
 
 }
 
-button.btn-filtre:hover{
+button.btn-filtre:hover {
 
 
-background-color: #1D6154;
-color: white;
+	background-color: #1D6154;
+	color: white;
 
 
 }
 
 
-.btn-filtre.active{
+.btn-filtre.active {
 
 
 	background-color: #1D6154;
 	color: white;
+
+
+}
+
+button.btn-publish {
+
+
+	height: 38px;
+	border: 1px solid black;
+	border-radius: 60px;
+	background-color: white;
+	font-family: Work Sans;
+	font-size: 14px;
+	font-weight: 700;
+	line-height: 37px;
+	letter-spacing: 0em;
+	text-align: center;
+	padding: 0px 26px 0px 26px;
+
+
+
+}
+
+button.btn-publish:hover {
+
+
+	height: 38px;
+	border: 1px solid black;
+	border-radius: 60px;
+	background-color: black;
+	font-family: Work Sans;
+	font-size: 14px;
+	font-weight: 700;
+	line-height: 37px;
+	letter-spacing: 0em;
+	text-align: center;
+	padding: 0px 26px 0px 26px;
+	color: white;
+
+
+
+}
+
+.box-editing-mode.visible {
+
+
+	height: 59px;
+	width: 100%;
+
+	background-color: black;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	visibility: visible;
+}
+
+.box-editing-mode {
+
+
+	height: 0px;
+	width: 100%;
+
+	background-color: black;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	visibility: hidden;
+}
+
+.box-editing-mode h2 {
+
+
+color: white;
+
+font-family: Work Sans;
+font-size: 16px;
+font-weight: 400;
+line-height: 19px;
+letter-spacing: 0em;
+text-align: center;
+margin-right: 21px ;
+
+
+}
+
+.portfolio h3{
+
+position: absolute;
+
+text-align: center;
+}
+
+
+.modal{
+
+position:fixed;
+height: 0px;
+width: 0px;
+top: 0;
+left: 0;
+background-color: rgb(0, 0, 0, 0.3);
+visibility: hidden;
+}
+
+
+.modal.visible{
+
+	position:fixed;
+	height: 100%;
+	width: 100%;
+	top: 0;
+	left: 0;
+	background-color: rgb(0, 0, 0, 0.3);
+	visibility: visible;
+}
+
+
+.modal-box{
+
+
+	max-height: 731px;
+	max-width: 630px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	border-radius: 10px;
+	background-color: white;
+	padding: 0px 105px 38px 105px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+}
+
+.modal-box h2{
+
+
+	font-family: 'Work Sans';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 26px;
+	line-height: 30px;
+	text-align: center;
+	color: black;
+	margin-top: 60px;
 	
+}
+
+.modal-img-box{
+
+
+	max-height: 731px;
+	max-width: 630px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	border-radius: 10px;
+	background-color: white;
 	
+}
+button.hidemodal{
+
+	background-color: transparent;
+	border: 0px;
+	width: 0px;
+	height: 0px;
+	position: fixed;
+	margin-top: 32px;
+	float: right;
+	margin-left: 87%;
+
+
+}
+
+button.hidemodal i{
+
+font-size: 16px;
+background-color: transparent;
+
+}
+button.hidemodal:hover i{
+
+	font-size: 16px;
+	background-color: transparent;
+	transform: rotate(90deg);
+	transition-duration: 200ms;
 	}
+
+button.hidemodal h2{
+	font-size: 0px;
+}
+
+.modal-box-list{
+
+
+
+	max-width: 420px;
+	margin: auto;
+
+	background-color: white;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	margin-top: 46px;
+	border-bottom: 1px solid #B3B3B3;
+	padding-bottom: 47px;
+}
+
+.modal-box-list img{
+
+
+	max-height: 104px;
+	max-width: 78px;
+
+	background-color: white;
+	
+}
+
+button.modal-modif{
+
+	color: white;
+	position: absolute;
+	background-color: rgb(0, 0, 0, 1);
+	border: 0px;
+	border-radius: 2px;
+	padding: 3.27px;
+	display: flex;
+
+	width: 17px;
+	height: 17px;
+}
+
+button.modal-modif#place{
+
+	color: white;
+	position: absolute;
+	margin-top: -100px;
+	background-color: rgb(0, 0, 0, 1);
+	border: 0px;
+	margin-left: 34px;
+	border-radius: 2px;
+	padding: 3.27px;
+
+}
+
+
+button.modal-modif i{
+
+	font-size: 11px;
+	width: 11px;
+	height: 11px;
+	font-weight: 600;
+}
+
+button.modal-modif#remove{
+
+	color: white;
+	position: absolute;
+	margin-top: -100px;
+	background-color: rgb(0, 0, 0, 1);
+	border: 0px;
+	margin-left: 55px;
+	border-radius: 2px;
+	padding: 3.27px;
+}
+
+button.modal-modif#edit{
+
+	color: black;
+	position: relative;
+	background-color: rgb(0, 0, 0, 0);
+	border: 0px;
+	border-radius: 0px;
+	padding: 0px;
+	display: flex;
+	margin-top: 0px;
+	width: auto;
+	height: auto;
+	margin-bottom: 10px;
+}
+
+
+button.add-project{
+
+	color: white;
+	background: #1D6154;
+	border-radius: 60px;
+	padding: 10px 49px 10px 49px;
+	font-family: Syne;
+	border: 0px;
+	margin: 38px auto 0px auto;
+
+}
+
+button.add-project h3{
+
+font-size: 14px;
+
+
+}
+
+button.del-projects{
+
+	color: #D65353;
+	background-color:transparent;
+	font-family: Syne;
+	border: 0px;
+	margin-top: 5px;
+	text-align: center;
+
+}
