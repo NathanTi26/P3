@@ -320,6 +320,18 @@ footer nav ul {
 	color: #3D3D3D;
 }
 
+.category-choice {
+
+	width: 379px;
+	height: 51px;
+	background: #FFFFFF;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	border:2px solid white;
+
+	margin: 7px 0 30px 0;
+
+}
+
 .log-text {
 
 	width: 379px;
@@ -394,7 +406,8 @@ button.btn-show a {
 	text-decoration: none;
 }
 
-.test.active {
+#logout
+ {
 	font-weight: 600;
 	font-size: 16px;
 }
@@ -489,7 +502,9 @@ button.btn-publish:hover {
 
 }
 
-.box-editing-mode.visible {
+
+.box-editing-mode {
+
 
 
 	height: 59px;
@@ -503,19 +518,6 @@ button.btn-publish:hover {
 	visibility: visible;
 }
 
-.box-editing-mode {
-
-
-	height: 0px;
-	width: 100%;
-
-	background-color: black;
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-	align-items: center;
-	visibility: hidden;
-}
 
 .box-editing-mode h2 {
 
@@ -543,26 +545,16 @@ text-align: center;
 
 .modal{
 
-position:fixed;
-height: 0px;
-width: 0px;
-top: 0;
-left: 0;
-background-color: rgb(0, 0, 0, 0.3);
-visibility: hidden;
-}
-
-
-.modal.visible{
-
 	position:fixed;
 	height: 100%;
 	width: 100%;
 	top: 0;
 	left: 0;
 	background-color: rgb(0, 0, 0, 0.3);
-	visibility: visible;
+	visibility: hidden;
+
 }
+
 
 
 .modal-box{
@@ -576,14 +568,133 @@ visibility: hidden;
 	transform: translate(-50%, -50%);
 	border-radius: 10px;
 	background-color: white;
-	padding: 0px 105px 38px 105px;
+	padding: 32px 105px 38px 105px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	visibility: hidden;
+}
+
+.modal-project-remove-confirm{
+
+	position: absolute;
+
+	border-radius: 10px;
+	background-color: white;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background-color: white;
+	visibility: hidden;
+	padding: 0px 0px 50px 0px;
+	margin-top: 60px;
+	width: 100%;
+
 
 }
 
-.modal-box h2{
+
+
+.modal-project-remove-confirm img{
+
+
+	width: 100%;
+	max-width: 280px;
+
+	
+}
+
+.modal-project-remove-confirm h2{
+font-family: 'Work Sans';
+font-style: normal;
+font-weight: 400;
+font-size: 20px;
+line-height: 30px;
+text-align: center;
+color: black;
+margin-top: 30px;
+
+}
+
+
+
+
+.modal-add-project{
+
+
+
+	position: absolute;
+
+	border-radius: 10px;
+	background-color: white;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background-color: white;
+	visibility: hidden;
+	padding: 0px 0px 50px 0px;
+	margin-top: 20px;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.modal-add-project h2{
+
+	font-family: 'Work Sans';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 26px;
+	line-height: 30px;
+	text-align: center;
+	color: #000000;
+
+}
+.img-to-add{
+
+height: 169px;
+width: 420px;
+background-color: #E8F1F7;
+margin-top: 36px;
+margin-bottom: 30px;
+flex-direction: column;
+display: flex;
+
+}
+
+.img-to-add-content{
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 28px;
+
+}
+
+.img-to-add i{
+
+color: #B9C5CC;
+
+font-size: 58px;
+	
+	}
+.modal-project2{
+
+
+	background-color: black;
+	max-width: 630px;
+	width: 100%;
+
+	border-radius: 10px;
+	background-color: white;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	visibility: hidden;
+}
+
+.modal-project-gallery h2{
 
 
 	font-family: 'Work Sans';
@@ -593,7 +704,8 @@ visibility: hidden;
 	line-height: 30px;
 	text-align: center;
 	color: black;
-	margin-top: 60px;
+	margin-top: 28px;
+
 	
 }
 
@@ -617,7 +729,7 @@ button.hidemodal{
 	width: 0px;
 	height: 0px;
 	position: fixed;
-	margin-top: 32px;
+
 	float: right;
 	margin-left: 87%;
 
@@ -647,8 +759,8 @@ button.hidemodal h2{
 
 
 	max-width: 420px;
+	max-height: 475px;
 	margin: auto;
-
 	background-color: white;
 	display: flex;
 	flex-direction: row;
@@ -657,6 +769,7 @@ button.hidemodal h2{
 	margin-top: 46px;
 	border-bottom: 1px solid #B3B3B3;
 	padding-bottom: 47px;
+
 }
 
 .modal-box-list img{
@@ -678,46 +791,57 @@ button.modal-modif{
 	border-radius: 2px;
 	padding: 3.27px;
 	display: flex;
+	width: 17px;
+	height: 17px;
+	
+}
+
+button.modal-modif-place{
+
+	color: white;
+	position: absolute;
+
+	background-color: rgb(0, 0, 0, 1);
+	border: 0px;
+	margin-left: -47px;
+	margin-top: 5px;
+	border-radius: 2px;
+	width: 17px;
+	height: 17px;
+
+}
+
+
+button.modal-modif-remove i{
+
+	font-size: 11px;
+	font-weight: 600;
+	margin-left: -2.5px;
+
+}
+button.modal-modif-place i{
+
+	font-size: 11px;
+	font-weight: 600;
+	margin-left: -3px;
+
+}
+button.modal-modif-remove{
+
+	color: white;
+	position: absolute;
+	margin-left: -25px;
+	margin-top: 5px;
+	background-color: rgb(0, 0, 0, 1);
+	border: 0px;
+	border-radius: 2px;
 
 	width: 17px;
 	height: 17px;
-}
-
-button.modal-modif#place{
-
-	color: white;
-	position: absolute;
-	margin-top: -100px;
-	background-color: rgb(0, 0, 0, 1);
-	border: 0px;
-	margin-left: 34px;
-	border-radius: 2px;
-	padding: 3.27px;
 
 }
 
-
-button.modal-modif i{
-
-	font-size: 11px;
-	width: 11px;
-	height: 11px;
-	font-weight: 600;
-}
-
-button.modal-modif#remove{
-
-	color: white;
-	position: absolute;
-	margin-top: -100px;
-	background-color: rgb(0, 0, 0, 1);
-	border: 0px;
-	margin-left: 55px;
-	border-radius: 2px;
-	padding: 3.27px;
-}
-
-button.modal-modif#edit{
+button.modal-modif-edit{
 
 	color: black;
 	position: relative;
@@ -741,10 +865,24 @@ button.add-project{
 	padding: 10px 49px 10px 49px;
 	font-family: Syne;
 	border: 0px;
-	margin: 38px auto 0px auto;
+	margin: 0px auto 0px auto;
+	max-width: 237px;
+
 
 }
 
+button.add-project#remove-confirmation{
+
+	color: white;
+	background: #1D6154;
+	border-radius: 60px;
+	padding: 10px 49px 10px 49px;
+	font-family: Syne;
+	border: 0px;
+	margin: 38px auto 0px auto;
+	max-width: 300px;
+
+}
 button.add-project h3{
 
 font-size: 14px;
@@ -752,6 +890,14 @@ font-size: 14px;
 
 }
 
+
+img#img-added{
+
+max-height: 169px;
+max-width: 129px;
+margin: auto;
+
+}
 button.del-projects{
 
 	color: #D65353;
@@ -760,5 +906,42 @@ button.del-projects{
 	border: 0px;
 	margin-top: 5px;
 	text-align: center;
+
+}
+
+input#btn-add-img{
+
+	color: #306685;
+	font-family: 'Work Sans';
+	font-style: normal;
+	font-weight: 500;
+	font-size: 14px;
+	line-height: 16px;
+	text-align: center;
+	background-color:#CBD6DC ;
+	border-radius: 50px;
+	width: 173px;
+	height: 36px;
+	border: 0px;
+	margin-top: 20px;
+
+}
+button.add-img:hover{
+
+	background-color:#bac7cc ;
+
+}
+.img-to-add-content h4{
+
+	font-family: 'Work Sans';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 10px;
+	line-height: 12px;
+
+	text-align: center;
+	
+	color: #444444;
+	margin-top: 7px;
 
 }

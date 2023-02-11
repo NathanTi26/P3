@@ -1,288 +1,114 @@
+function genererProject(projectfiltres) {
 
+  for (let i = 0; i < projectfiltres.length; i++) {
 
-const reponse = await fetch('http://localhost:5678/api/works');
-const projects = await reponse.json();
-
-
-function genererProject(projectfiltres)
-
-{
-
-    for (let i = 0; i < projectfiltres.length; i++) {
-
-    const article = projectfiltres[i] ;
+    const article = projectfiltres[i];
 
 
     const sectionFiches = document.querySelector(".gallery");
     const projectElement = document.createElement("figure");
-    const imageElement = document.createElement("img") ;   
+    const imageElement = document.createElement("img");
     imageElement.crossOrigin = "anonymous";
     imageElement.src = article.imageUrl;
-
     const nomElement = document.createElement("figcaption");
-
     nomElement.innerText = article.title;
-
     sectionFiches.appendChild(projectElement);
-
     projectElement.appendChild(imageElement);
     projectElement.appendChild(nomElement);
 
+  }
 }
- }
 
+// Supréssion du TOKEN
 
- console.log(projects);
+function removeToken(){
 
- genererProject(projects); // Premier affichage de la page
+  localStorage.removeItem("token", token);
 
+  window.location.reload();
+  
+  console.log("Token remove")
 
-////// MODAL /////
+}
+
 
 // On récupère le token
 
-const token = localStorage.getItem("token");
+function getToken(){
 
-const headerEdit = document.querySelector(".box-editing-mode");
+  let token = localStorage.getItem("token");
 
-
-
-
-
-  // Si Token OK afficher :
-if(token !== null){
-
-  console.log("TOKEN OK");
-
-  console.log(token);
-
-  document.querySelector('.box-editing-mode').classList.toggle('visible');
+  return token;
 
 }
 
-// Si Token PAS OK
-
-  else {
-
-    console.log("TOKEN PAS OK");
-
-    document.querySelector('.box-editing-mode').classList.toggle('hidden');
-
-  }
+// Check du TOKEN
 
 
+function IfTokenOk(){
 
- // Afficher la modal
+  if (token  !== null) {
 
-  const displayModal = document.getElementById('displaymodal')
+    console.log("Voici le token :" + token)
 
-  displayModal.addEventListener('click', showModal);
-  
-  function showModal(){
-    document.querySelector('.modal').classList.toggle('visible');
+    document.querySelector(".btn-show").innerHTML = `<a href="#" id="logout">logout</a>`;
 
-  }
-  
-// Masquer la modal
+    document.querySelector(".box-editing-mode1").innerHTML = `
+    
+    <div class="box-editing-mode">
 
-  const hideDisplayModal = document.getElementById('hideModal')
+    <h2>
 
-  hideDisplayModal.addEventListener('click', showModal);
-  
-  function hideModal(){
-    document.querySelector('.modal').classList.remove('visible');
+    <i class="fa-regular fa-pen-to-square"></i> 
+    
+    Mode édition
+    
+    </h2>
 
-  }
-
-
-// Récupération des projects pour la modal
-
-const reponseModal = await fetch('http://localhost:5678/api/works');
-
-const projectsModal = await reponseModal.json();
-
-
-function genererProjectModal(projectModal)
-
-{
-
-    for (let i = 0; i < projectModal.length; i++) {
-
-    const article = projectModal[i] ;
-
-
-    const sectionFichesModal = document.querySelector(".modal-box-list");
-
-    const projectElementModal = document.createElement("figure");
+    <button class="btn-publish">Publier les changements</button>
+    
+    </div>`;
 
 
 
-    const imageElementModal = document.createElement("img") ;  
+     const btnLogout = document.getElementById("logout"); 
 
-    imageElementModal.crossOrigin = "anonymous";
-    imageElementModal.src = article.imageUrl;
+     btnLogout.addEventListener("click", function () {
 
-    const mooveElement = document.createElement("button-modal-box");
-
-    const deleteElement = document.createElement("button-modal-box");
-
-    const editElement = document.createElement("button-modal-box");
-
-
-
-// Afficher les projects dans la modal
-
-    mooveElement.innerHTML = `<button class="modal-modif" id="place"><i class="fa-solid fa-arrows-up-down-left-right"></i></button>`;
-    deleteElement.innerHTML = `<button class="modal-modif" id="remove"><i class="fa-solid fa-trash-can"></i></button>`;
-    editElement.innerHTML = `<button class="modal-modif" id="edit">éditer</button>`;
-    sectionFichesModal.appendChild(projectElementModal);
-
-    projectElementModal.appendChild(imageElementModal);
-    projectElementModal.appendChild(mooveElement);
-    projectElementModal.appendChild(deleteElement);
-    projectElementModal.appendChild(editElement);
-
-
-
-}
- }
-
-
-
- genererProjectModal(projectsModal);
-
-
-// Bouton supprésion procjet modal
-
-
-
-const deleteProjectModal2 = document.getElementById("remove"); 
-
-deleteProjectModal2.addEventListener("click", function () {
-   const ProjectModal2 = projects.filter(function (project) {
-       return project.id;
-   });
-
-   console.log("projet supprimé");
-
-   genererProject(ProjectModal2);
-});
-
-
-
-
-
-////// FIN MODAL /////
-
-
-
-
-
-// Bouton filtre Objets
-
- const boutonObjects = document.getElementById("btn-filtrer"); 
-
- boutonObjects.addEventListener("click", function () {
-    const projetcsFiltre = projects.filter(function (project) {
-        return project.categoryId === 1;
+      removeToken()
     });
-   console.log(projetcsFiltre)
+  }
 
-   document.querySelector(".gallery").innerHTML = "";
+  else { // Si Token PAS OK
 
-   genererProject(projetcsFiltre);
+    console.log("Vous n'êtes pas connecté");
+    document.querySelector(".btn-show").innerHTML = `<a href="#">login</a>`;
+  }
+}
 
-});
+// Affichage de la box de connexion
 
-// Bouton filtre Appartement
+function showForm() {
 
-
-
-const boutonFlat = document.getElementById("btn-filtrer2"); 
-
-boutonFlat.addEventListener("click", function () {
-   const projetcsFiltre2 = projects.filter(function (project) {
-    return project.categoryId === 2;
-   });
-
-
-
-  console.log(projetcsFiltre2)
-
-  document.querySelector(".gallery").innerHTML = "";
-
-  genererProject(projetcsFiltre2);
-  
-});
-
-// Bouton filtre Hotels & Restaurants
-
-
-
-const boutonHotel = document.getElementById("btn-filtrer3"); 
-
-boutonHotel.addEventListener("click", function () {
-   const projetcsFiltre3 = projects.filter(function (project) {
-    return project.categoryId === 3;
-   });
-
-
-
-  console.log(projetcsFiltre3)
-
-  document.querySelector(".gallery").innerHTML = "";
-
-  genererProject(projetcsFiltre3);
-  
-});
-
-// Bouton filtre Tous
-
-const boutonAll = document.getElementById("btn-filtrer4"); 
-
-boutonAll.addEventListener("click", function () {
-   const projetcsFiltre4 = projects.filter(function (project) {
-    return projects
-   });
-
-  console.log(projetcsFiltre4)
-
-  document.querySelector(".gallery").innerHTML = "";
-
-  genererProject(projetcsFiltre4);
-});
-
-
-
-
-
-const displayform = document.getElementById('displayform')
-
-
-displayform.addEventListener('click', showForm);
-
-function showForm(){
   document.querySelector('.hiddensection').classList.toggle('hidden');
   document.querySelector('.connexion-box').classList.toggle('visible');
+
 }
 
-
-
-// Box connexion
-
-
+// Récupération des informations de connexion
 
 function getUserLog() {
 
-    let email = document.getElementById("email").value;
-    let password = document.getElementById("password").value;
+  let email = document.getElementById("email").value;
+  let password = document.getElementById("password").value;
+
 
   const user = {
     email: email,
     password: password
-}
+  }
 
-return user;
+  return user;
 
 }
 
@@ -290,11 +116,11 @@ function showErrorMsg() {
   alert("Erreur dans l'identifiant ou le mot de passe");
 }
 
-document.getElementById("btn-log").addEventListener("click", async function(e) {
+document.getElementById("btn-log").addEventListener("click", async function (e) {
 
   e.preventDefault();
-  
-  
+
+
   let user = getUserLog()
   fetch('http://localhost:5678/api/users/login', {
     method: 'POST',
@@ -303,53 +129,131 @@ document.getElementById("btn-log").addEventListener("click", async function(e) {
     },
     body: JSON.stringify(user),
   })
-  .then((res) => {
+    .then((res) => {
       if (res.ok) {
-          return res.json();
+        return res.json();
 
 
       }
       else {
-          showErrorMsg();
-          return 0;
+        showErrorMsg();
+        return 0;
       }
-  })
-  .then((value) => {
+    })
+    .then((value) => {
       if (value !== 0) {
-          localStorage.setItem("token", value.token);
-          console.log(value.token);
+
+
+        localStorage.setItem("token", value.token);
+        console.log(value.token);
+
+        window.location.reload();
+
       }
-  })
-}); 
+    })
+}
+);
+
+
+const reponse = await fetch('http://localhost:5678/api/works');
+const projects = await reponse.json();
+
+console.log(projects);
+
+genererProject(projects); // Premier affichage de la page
+
+
+const token = getToken()
+
+IfTokenOk()
+
+
+// Bouton filtre Objet
+
+const boutonObject = document.getElementById("btn-filtrer2");
+
+boutonObject.addEventListener("click", function () {
+  const projetcsFiltre3 = projects.filter(function (project) {
+    return project.categoryId === 1;
+  });
+
+  console.log(projetcsFiltre3)
+
+  document.querySelector(".gallery").innerHTML = "";
+
+  genererProject(projetcsFiltre3);
+
+});
+
+// Bouton filtre Appartement
+
+const boutonFlat = document.getElementById("btn-filtrer2");
+
+boutonFlat.addEventListener("click", function () {
+  const projetcsFiltre2 = projects.filter(function (project) {
+    return project.categoryId === 2;
+  });
+
+  console.log(projetcsFiltre2)
+
+  document.querySelector(".gallery").innerHTML = "";
+
+  genererProject(projetcsFiltre2);
+
+});
+
+// Bouton filtre Hotels & Restaurants
+
+const boutonHotel = document.getElementById("btn-filtrer3");
+
+boutonHotel.addEventListener("click", function () {
+  const projetcsFiltre3 = projects.filter(function (project) {
+    return project.categoryId === 3;
+  });
+
+  console.log(projetcsFiltre3)
+
+  document.querySelector(".gallery").innerHTML = "";
+
+  genererProject(projetcsFiltre3);
+
+});
+
+// Bouton filtre Tous
+
+const boutonAll = document.getElementById("btn-filtrer4");
+
+boutonAll.addEventListener("click", function () {
+  const projetcsFiltre4 = projects.filter(function (project) {
+    return projects
+  });
+
+  console.log(projetcsFiltre4)
+
+  document.querySelector(".gallery").innerHTML = "";
+
+  genererProject(projetcsFiltre4);
+
+});
+
+
+// Affichage de la connexion
+
+const displayform = document.getElementById('displayform')
+displayform.addEventListener('click', showForm);
+
 
 // Gestion couleur des filtres actifs
 
-
-
 const filter = document.querySelectorAll('.btn-filtre')
 
-for ( let allFilter of filter){
+for (let allFilter of filter) {
 
-  allFilter.addEventListener('click', function(){
+  allFilter.addEventListener('click', function () {
 
-for (let filterRemove of filter){
-
-filterRemove.classList.remove('active')
-
+    for (let filterRemove of filter) {
+      filterRemove.classList.remove('active')
+    }
+    allFilter.classList.add('active')
+  })
 }
-
-allFilter.classList.add('active')
-})}
-
-
-
-
-// Affichage si token ok
-
-
-
-
-
-
-
-
