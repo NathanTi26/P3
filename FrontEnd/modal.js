@@ -1,6 +1,6 @@
 function getToken() {
 
-    let token = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
 
     return token;
 
@@ -44,7 +44,7 @@ function hideModal() {
 // function getNewProject() {
 
 
-//     if (category.value === "0" || tittle.value === "" || imgSrc.value === "") {
+//     if (category.value === "0" || title.value === "" || imgSrc.value === "") {
 
 //         console.log("Un des champs est vide.")
 //     }
@@ -228,34 +228,41 @@ function previewPhoto() {
 
     }
 
-    const imageUrl = file[0]
-
-    const tittle = document.getElementById("tittle").value
-
-    const category = document.getElementById("category").value
-
 
 
     document.querySelector('.img-to-add-content').style.visibility = "hidden";
-
 
     const newProject2 = document.getElementById("add-confirmation2");
 
     newProject2.addEventListener("click", function () {
     
-    
-        console.log(imageUrl)
-        console.log(tittle)
-        console.log(category)
+
+        const formData = new FormData()
+
+        formData.append('image', document.getElementById('img-added').files[0], document.getElementById('img-added').files[0].type)
+        formData.append('title', document.querySelector('input[id="title]').value)
+        formData.append('category', document.querySelector('select[id="category]').value)
+        console.log(formData)
+        console.log("Les data")
+
+        fetch('http://localhost:5678/api/works', {
+        method: 'POST',
+        headers: {
+
+        'accept': 'application/json',
+        'Content-Type': 'multipart/form-data',
+        'Authorization': `Bearer` + " " + getToken(),
+
+        },
+        body: JSON.stringify(formData)
+        })
+
+
+
 
 
     });
-
-}
-
-
-
-
+    }
 
 
 const input = document.getElementById("btn-add-img");
