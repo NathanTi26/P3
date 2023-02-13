@@ -237,6 +237,8 @@ function previewPhoto() {
     newProject2.addEventListener("click", function () {
     
 
+
+
         const formData = new FormData()
 
         formData.append('image', document.getElementById('img-added').files[0], document.getElementById('img-added').files[0].type)
@@ -256,8 +258,6 @@ function previewPhoto() {
         },
         body: JSON.stringify(formData)
         })
-
-
 
 
 
