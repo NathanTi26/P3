@@ -24,7 +24,8 @@ function showModal() {
     document.querySelector('.modal-project-gallery').style.visibility = "visible";
     document.querySelector('.modal-box-list').style.visibility = "visible";
     document.querySelector('.modal-project-gallery').style.visibility = "visible";
-    document.querySelector('.modal-close').addEventListener('click', stopPropagation)
+
+
 }
 
 // Fonction du bouton dde fermeture de la modal
@@ -216,9 +217,22 @@ function previewPhoto() {
     
     document.getElementById('img-to-add-content').style.visibility = "hidden";
 
+
+
+
 }
    
-const IMG_URL = document.getElementById("img-added");
+
+
+
+
+
+
+
+
+
+
+
 const TITLE_INPUT = document.getElementById("title");
 const CATEGORY_INPUT = document.getElementById("category");
 
@@ -228,7 +242,7 @@ NEW_PROJECT.addEventListener("click", function () {
 
     const FORM_DATA = new FormData()
 
-    FORM_DATA.append('image', IMG_URL);
+    FORM_DATA.append('image', ADD_PREVIEW_IMAGE.files[0]);
     FORM_DATA.append('title', TITLE_INPUT.value);
     FORM_DATA.append('category', CATEGORY_INPUT.value);
 
@@ -250,17 +264,7 @@ NEW_PROJECT.addEventListener("click", function () {
     console.log(getToken())
     console.log(FORM_DATA)
 
+
 });
-
-
-
-
-
-
-
-
-
-
-
 
 
