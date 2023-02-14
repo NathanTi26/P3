@@ -223,7 +223,7 @@ li:hover {
 
 #portfolio h2 {
 	text-align: center;
-	margin-bottom: 1em;
+
 }
 
 .gallery {
@@ -343,6 +343,19 @@ footer nav ul {
 
 }
 
+.input-project-title {
+
+	max-width: 379px;
+	width: 100%;
+	height: 51px;
+	background: #FFFFFF;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	border: 0px solid black;
+	margin: 7px 0 30px 0;
+
+
+}
+
 .log-name {
 
 
@@ -351,7 +364,6 @@ footer nav ul {
 	line-height: 16px;
 	letter-spacing: 0em;
 	text-align: left;
-
 
 }
 
@@ -506,16 +518,15 @@ button.btn-publish:hover {
 .box-editing-mode {
 
 
-
 	height: 59px;
 	width: 100%;
-
 	background-color: black;
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
 	visibility: visible;
+
 }
 
 
@@ -560,12 +571,11 @@ text-align: center;
 .modal-box{
 
 
-	max-height: 731px;
 	max-width: 630px;
 	position: absolute;
-	top: 50%;
+	margin-top: 5%;
 	left: 50%;
-	transform: translate(-50%, -50%);
+	transform: translate(-50%);
 	border-radius: 10px;
 	background-color: white;
 	padding: 32px 105px 38px 105px;
@@ -573,6 +583,8 @@ text-align: center;
 	flex-direction: column;
 	align-items: center;
 	visibility: hidden;
+
+
 }
 
 .modal-project-remove-confirm{
@@ -639,6 +651,7 @@ margin-top: 30px;
 	flex-direction: column;
 	align-items: center;
 }
+
 .modal-add-project h2{
 
 	font-family: 'Work Sans';
@@ -650,10 +663,12 @@ margin-top: 30px;
 	color: #000000;
 
 }
+
 .img-to-add{
 
 height: 169px;
-width: 420px;
+max-width: 420px;
+width: 100%;
 background-color: #E8F1F7;
 margin-top: 36px;
 margin-bottom: 30px;
@@ -708,7 +723,13 @@ font-size: 58px;
 
 	
 }
+.modal-project-gallery{
 
+display: flex;
+flex-direction: column;
+justify-content: space-around;
+	
+}
 .modal-img-box{
 
 
@@ -756,19 +777,21 @@ button.hidemodal h2{
 
 .modal-box-list{
 
-
-
 	max-width: 420px;
-	max-height: 475px;
+
 	margin: auto;
 	background-color: white;
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
-	justify-content: space-between;
+	gap:20px;
+	justify-content: center;
 	margin-top: 46px;
 	border-bottom: 1px solid #B3B3B3;
 	padding-bottom: 47px;
+
+
+
 
 }
 
@@ -777,7 +800,6 @@ button.hidemodal h2{
 
 	max-height: 104px;
 	max-width: 78px;
-
 	background-color: white;
 	
 }
@@ -851,9 +873,9 @@ button.modal-modif-edit{
 	padding: 0px;
 	display: flex;
 	margin-top: 0px;
-	width: auto;
-	height: auto;
+
 	margin-bottom: 10px;
+
 }
 
 
@@ -865,11 +887,17 @@ button.add-project{
 	padding: 10px 49px 10px 49px;
 	font-family: Syne;
 	border: 0px;
-	margin: 0px auto 0px auto;
-	max-width: 237px;
+	margin: 25px auto 0px auto;
+	width: 237px;
 
 
 }
+button.add-project:hover{
+
+	background: #2a8b7a;
+
+}
+
 
 button.add-project#remove-confirmation{
 
@@ -883,6 +911,7 @@ button.add-project#remove-confirmation{
 	max-width: 300px;
 
 }
+
 button.add-project h3{
 
 font-size: 14px;
@@ -945,3 +974,57 @@ button.add-img:hover{
 	margin-top: 7px;
 
 }
+
+button.btn-modification{
+
+
+background-color: transparent;
+border: none;
+font-size: 14px;
+height: 18px;
+margin-left: 31px;
+
+}
+button.btn-modification i{
+
+
+	background-color: transparent;
+	border: none;
+	font-size: 16px;
+
+	
+	}
+
+.project-btn-modif{
+
+
+display: flex;
+flex-direction: row;
+align-items: center;
+justify-content: center;
+margin-bottom: 2em;
+margin-top: 108px;
+
+}
+
+button.btn-modif-fake{
+
+
+	background-color: transparent;
+	border: none;
+	font-size: 14px;
+	height: 18px;
+	margin-top: 13px;
+	margin-left: 9%;
+
+	}
+
+button.btn-modif-fake i{
+
+
+	background-color: transparent;
+	border: none;
+	font-size: 16px;
+
+		
+	}
