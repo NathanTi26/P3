@@ -1,20 +1,50 @@
+const REPONSE = await fetch('http://localhost:5678/api/works');
+const PROJECTS = await REPONSE.json();
+
+// Bouton filtre Objet
+
+const BOUTON_OBJECT = document.getElementById("btn-filtrer");
+
+// Bouton filtre Appartement
+
+const BOUTON_FLAT = document.getElementById("btn-filtrer2");
+
+// Bouton filtre Hotels & Restaurants
+
+const BOUTON_HOTEL = document.getElementById("btn-filtrer3");
+
+// Bouton filtre Tous
+
+const BOUTON_ALL = document.getElementById("btn-filtrer4");
+
+// Gestion couleur des filtres actifs
+
+const filter = document.querySelectorAll('.btn-filtre')
+
+// Affichage de la connexion
+
+const DISPLAY_FORM = document.getElementById('displayform')
+DISPLAY_FORM.addEventListener('click', showForm);
+
+
+
 function genererProject(projectfiltres) {
 
   for (let i = 0; i < projectfiltres.length; i++) {
 
-    const article = projectfiltres[i];
+    const ARTICLE = projectfiltres[i];
 
 
-    const sectionFiches = document.querySelector(".gallery");
-    const projectElement = document.createElement("figure");
-    const imageElement = document.createElement("img");
-    imageElement.crossOrigin = "anonymous";
-    imageElement.src = article.imageUrl;
-    const nomElement = document.createElement("figcaption");
-    nomElement.innerText = article.title;
-    sectionFiches.appendChild(projectElement);
-    projectElement.appendChild(imageElement);
-    projectElement.appendChild(nomElement);
+    const SECTION_FICHES = document.querySelector(".gallery");
+    const PROJECT_ELEMENT = document.createElement("figure");
+    const IMAGE_ELEMENT = document.createElement("img");
+    IMAGE_ELEMENT.crossOrigin = "anonymous";
+    IMAGE_ELEMENT.src = ARTICLE.imageUrl;
+    const NOM_ELEMENT = document.createElement("figcaption");
+    NOM_ELEMENT.innerText = ARTICLE.title;
+    SECTION_FICHES.appendChild(PROJECT_ELEMENT);
+    PROJECT_ELEMENT.appendChild(IMAGE_ELEMENT);
+    PROJECT_ELEMENT.appendChild(NOM_ELEMENT);
 
   }
 }
@@ -71,9 +101,9 @@ function IfTokenOk(){
 
 
 
-     const btnLogout = document.getElementById("logout"); 
+     const BTN_LOGOUT = document.getElementById("logout"); 
 
-     btnLogout.addEventListener("click", function () {
+     BTN_LOGOUT.addEventListener("click", function () {
 
       removeToken()
     });
@@ -103,12 +133,12 @@ function getUserLog() {
   let password = document.getElementById("password").value;
 
 
-  const user = {
+  const USER = {
     email: email,
     password: password
   }
 
-  return user;
+  return USER;
 
 }
 
@@ -154,77 +184,64 @@ document.getElementById("btn-log").addEventListener("click", async function (e) 
 }
 );
 
-
-const reponse = await fetch('http://localhost:5678/api/works');
-const projects = await reponse.json();
-
-console.log(projects);
-
-genererProject(projects); // Premier affichage de la page
+genererProject(PROJECTS); // Premier affichage de la page
 
 
-const token = getToken()
+const TOKEN = getToken()
 
 IfTokenOk()
 
 
 // Bouton filtre Objet
 
-const boutonObject = document.getElementById("btn-filtrer2");
-
-boutonObject.addEventListener("click", function () {
-  const projetcsFiltre3 = projects.filter(function (project) {
+BOUTON_OBJECT.addEventListener("click", function () {
+  const PROJECT_FILTRE_1 = PROJECTS.filter(function (project) {
     return project.categoryId === 1;
   });
 
-  console.log(projetcsFiltre3)
+  console.log(PROJECT_FILTRE_1)
 
   document.querySelector(".gallery").innerHTML = "";
 
-  genererProject(projetcsFiltre3);
+  genererProject(PROJECT_FILTRE_1);
 
 });
 
 // Bouton filtre Appartement
 
-const boutonFlat = document.getElementById("btn-filtrer2");
-
-boutonFlat.addEventListener("click", function () {
-  const projetcsFiltre2 = projects.filter(function (project) {
+BOUTON_FLAT.addEventListener("click", function () {
+  const PROJECT_FILTRE_2 = PROJECTS.filter(function (project) {
     return project.categoryId === 2;
   });
 
-  console.log(projetcsFiltre2)
+  console.log(PROJECT_FILTRE_2)
 
   document.querySelector(".gallery").innerHTML = "";
 
-  genererProject(projetcsFiltre2);
+  genererProject(PROJECT_FILTRE_2);
 
 });
 
 // Bouton filtre Hotels & Restaurants
 
-const boutonHotel = document.getElementById("btn-filtrer3");
-
-boutonHotel.addEventListener("click", function () {
-  const projetcsFiltre3 = projects.filter(function (project) {
+BOUTON_HOTEL.addEventListener("click", function () {
+  const PROJECT_FILTRE_3 = PROJECTS.filter(function (project) {
     return project.categoryId === 3;
   });
 
-  console.log(projetcsFiltre3)
+  console.log(PROJECT_FILTRE_3)
 
   document.querySelector(".gallery").innerHTML = "";
 
-  genererProject(projetcsFiltre3);
+  genererProject(PROJECT_FILTRE_3);
 
 });
 
 // Bouton filtre Tous
 
-const boutonAll = document.getElementById("btn-filtrer4");
 
-boutonAll.addEventListener("click", function () {
-  const projetcsFiltre4 = projects.filter(function (project) {
+BOUTON_ALL.addEventListener("click", function () {
+  const projetcsFiltre4 = PROJECTS.filter(function (project) {
     return projects
   });
 
@@ -237,15 +254,13 @@ boutonAll.addEventListener("click", function () {
 });
 
 
-// Affichage de la connexion
 
-const displayform = document.getElementById('displayform')
-displayform.addEventListener('click', showForm);
+
 
 
 // Gestion couleur des filtres actifs
 
-const filter = document.querySelectorAll('.btn-filtre')
+
 
 for (let allFilter of filter) {
 

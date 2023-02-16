@@ -165,7 +165,7 @@ function genererProjectModal(projectModal) {
 
 // Afficher la modal
 
-const DISPLAY_MODAL = document.getElementById('displaymodal')
+const DISPLAY_MODAL = document.querySelector('#displaymodal')
 
 DISPLAY_MODAL.addEventListener('click', showModal);
 
@@ -266,5 +266,26 @@ NEW_PROJECT.addEventListener("click", function () {
 
 
 });
+
+
+
+
+    const NEW_PROJECT2 = document.getElementById("del-projects");
+
+    NEW_PROJECT2.addEventListener("click", function () {
+
+        fetch('http://localhost:5678/api/works')
+
+        for (let i = 0; i < PROJECTS_MODAL.length; i++) {
+            fetch('http://localhost:5678/api/works' + "/" + PROJECTS_MODAL[i].id, {
+                method: "DELETE",
+                headers: {
+                    'Authorization': "Bearer " + getToken(),
+                    'Content-type': 'application/json'
+                }
+            })}
+    })
+
+
 
 
