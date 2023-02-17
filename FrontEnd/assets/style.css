@@ -367,12 +367,18 @@ footer nav ul {
 
 }
 
-input[type="submit"].log-btn {
+
+.log-btn {
 
 	width: 179px;
 	height: 36px;
-	margin: 37px 0px 28px 0px;
+	margin: 37px 0px 28px 95px;
 	border: 1px;
+	background: #1D6154;
+	border-radius: 60px;
+	color: white;
+	text-align: center;
+
 
 }
 

@@ -53,7 +53,7 @@ function genererProject(projectfiltres) {
 
 function removeToken(){
 
-  localStorage.removeItem("token", token);
+  localStorage.removeItem("token", TOKEN);
 
   window.location.reload();
   
@@ -66,9 +66,9 @@ function removeToken(){
 
 function getToken(){
 
-  let token = localStorage.getItem("token");
+  let TOKEN = localStorage.getItem("token");
 
-  return token;
+  return TOKEN;
 
 }
 
@@ -77,9 +77,9 @@ function getToken(){
 
 function IfTokenOk(){
 
-  if (token  !== null) {
+  if (TOKEN  !== null) {
 
-    console.log("Voici le token :" + token)
+    console.log("Voici le token :" + TOKEN)
 
     document.querySelector(".btn-show").innerHTML = `<a href="#" id="logout">logout</a>`;
 
@@ -133,12 +133,12 @@ function getUserLog() {
   let password = document.getElementById("password").value;
 
 
-  const USER = {
+  const user = {
     email: email,
     password: password
   }
 
-  return USER;
+  return user;
 
 }
 

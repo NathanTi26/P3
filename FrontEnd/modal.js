@@ -1,6 +1,9 @@
 const REPONSE_MODAL = await fetch('http://localhost:5678/api/works');
 const PROJECTS_MODAL = await REPONSE_MODAL.json();
 
+const message_img = document.createElement("message");
+const message = document.getElementById("modal-remove-message");
+
 
 function getToken() {
     
@@ -238,7 +241,9 @@ const CATEGORY_INPUT = document.getElementById("category");
 
 const NEW_PROJECT = document.getElementById("add-confirmation2");
 
-NEW_PROJECT.addEventListener("click", function () {
+NEW_PROJECT.addEventListener("click", async function (e) {
+
+    e.preventDefault();
 
     const FORM_DATA = new FormData()
 
@@ -246,6 +251,30 @@ NEW_PROJECT.addEventListener("click", function () {
     FORM_DATA.append('title', TITLE_INPUT.value);
     FORM_DATA.append('category', CATEGORY_INPUT.value);
 
+
+    if (TITLE_INPUT.value == null){
+
+        message_img.innerHTML = `<h2> Vous devez renseigner un titre </h2>`;
+        message.appendChild(message_img);
+
+            
+        // }
+        // else if (CATEGORY_INPUT.value == null){
+
+        //     message_img.innerHTML = `<h2> Vous devez renseigner une catégorie </h2>`;
+        //     message.appendChild(message_img);
+
+                
+        //     }
+            
+        //     else if (ADD_PREVIEW_IMAGE.files[0] == null){
+
+        //         message_img.innerHTML = `<h2> Vous devez séléctioner une image </h2>`;
+        //         message.appendChild(message_img);
+            
+                }
+
+    else{
     for(var pair of FORM_DATA.entries()) {
         console.log(pair[0]+ ', '+ pair[1]);
      }
@@ -259,11 +288,7 @@ NEW_PROJECT.addEventListener("click", function () {
 
     body: FORM_DATA
 
-    })
-
-    console.log(getToken())
-    console.log(FORM_DATA)
-
+    })}
 
 });
 
