@@ -251,30 +251,31 @@ NEW_PROJECT.addEventListener("click", async function (e) {
     FORM_DATA.append('title', TITLE_INPUT.value);
     FORM_DATA.append('category', CATEGORY_INPUT.value);
 
+    if (ADD_PREVIEW_IMAGE.files[0] == null){
 
-    if (TITLE_INPUT.value == null){
+        message_img.innerHTML = `<h2> Vous devez séléctioner une image </h2>`;
+        message.appendChild(message_img);
+    
+        }
+    else if (TITLE_INPUT.value == ""){
 
         message_img.innerHTML = `<h2> Vous devez renseigner un titre </h2>`;
         message.appendChild(message_img);
 
             
-        // }
-        // else if (CATEGORY_INPUT.value == null){
+        }
+        else if (CATEGORY_INPUT.value == 0){
 
-        //     message_img.innerHTML = `<h2> Vous devez renseigner une catégorie </h2>`;
-        //     message.appendChild(message_img);
+            message_img.innerHTML = `<h2> Vous devez renseigner une catégorie </h2>`;
+            message.appendChild(message_img);
 
                 
-        //     }
+            }
             
-        //     else if (ADD_PREVIEW_IMAGE.files[0] == null){
 
-        //         message_img.innerHTML = `<h2> Vous devez séléctioner une image </h2>`;
-        //         message.appendChild(message_img);
-            
-                }
 
-    else{
+    else {
+
     for(var pair of FORM_DATA.entries()) {
         console.log(pair[0]+ ', '+ pair[1]);
      }
