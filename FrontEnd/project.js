@@ -100,7 +100,23 @@ function IfTokenOk(){
     </div>`;
 
 
+    document.querySelector("#filtre-btn-modif").innerHTML = `
+    
+    <button class="btn-modification" id="displaymodal">
+				
+    <i class="fa-regular fa-pen-to-square"></i> 
 
+    Modifier
+
+  </button>`;
+
+
+    document.querySelector("#introduction-btn-modif").innerHTML = `
+    
+    <button class="btn-modification" name="displaymodal">
+    <i class="fa-regular fa-pen-to-square"></i> 
+    Modifier
+  </button>`;
      const BTN_LOGOUT = document.getElementById("logout"); 
 
      BTN_LOGOUT.addEventListener("click", function () {

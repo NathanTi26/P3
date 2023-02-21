@@ -168,10 +168,12 @@ function genererProjectModal(projectModal) {
 
 // Afficher la modal
 
-const DISPLAY_MODAL = document.querySelector('#displaymodal')
+const DISPLAY_MODAL = document.getElementsByClassName('btn-modification')
 
-DISPLAY_MODAL.addEventListener('click', showModal);
 
+for (var i = 0 ; i < DISPLAY_MODAL.length; i++) {
+    DISPLAY_MODAL[i].addEventListener('click' , showModal , false ) ; 
+ }
 
 // Masquer la modal
 

@@ -980,17 +980,17 @@ button.add-img:hover{
 
 }
 
-button.btn-modification{
+.btn-modification {
 
 
 background-color: transparent;
 border: none;
 font-size: 14px;
 height: 18px;
-margin-left: 31px;
+
 
 }
-button.btn-modification i{
+.btn-modification i{
 
 
 	background-color: transparent;
@@ -1010,19 +1010,29 @@ justify-content: center;
 margin-bottom: 2em;
 margin-top: 108px;
 
+
 }
 
-button.btn-modif-fake{
+.filtre-btn-modif{
 
 
-	background-color: transparent;
-	border: none;
-	font-size: 14px;
-	height: 18px;
-	margin-top: 13px;
-	margin-left: 9%;
+	margin-left: 51px;
 
 	}
+#introduction-btn-modif{
+
+
+		margin-left: 51px;
+		margin-top: 5px;
+	}
+
+	#filtre-btn-modif{
+
+
+		margin-left: 10px;
+
+	}
+
 
 button.btn-modif-fake i{
 
