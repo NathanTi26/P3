@@ -88,8 +88,8 @@ function genererProjectModal(projectModal) {
         const ID_ELEMENT = ARTICLE.id;
 
 
-        MOOVE_ELEMENT.innerHTML = `<button class="modal-modif-place"><i class="fa-solid fa-arrows-up-down-left-right"></i></button>`;
-        MOOVE_ELEMENT.setAttribute("id", "place-" + ID_ELEMENT);
+        // MOOVE_ELEMENT.innerHTML = `<button class="modal-modif-place"><i class="fa-solid fa-arrows-up-down-left-right"></i></button>`;
+        // MOOVE_ELEMENT.setAttribute("id", "place-" + ID_ELEMENT);
         DELETE_ELEMENT.innerHTML = `<button class="modal-modif-remove" name="remove"><i class="fa-solid fa-trash-can"></i></button>`;
         DELETE_ELEMENT.setAttribute("id", "remove-" + ID_ELEMENT);
         EDIT_ELEMENT.innerHTML = `<button class="modal-modif-edit">éditer</button>`;
@@ -97,7 +97,7 @@ function genererProjectModal(projectModal) {
         SECTION_FICHES_MODAL.appendChild(PROJECT_ELEMENT_MODAL);
         PROJECT_ELEMENT_MODAL.appendChild(IMAGE_ELEMENT_MODAL);
         IMAGE_ELEMENT_MODAL.setAttribute("id", "image-project-" + ID_ELEMENT);
-        PROJECT_ELEMENT_MODAL.appendChild(MOOVE_ELEMENT);
+        // PROJECT_ELEMENT_MODAL.appendChild(MOOVE_ELEMENT);
         PROJECT_ELEMENT_MODAL.appendChild(DELETE_ELEMENT);
         PROJECT_ELEMENT_MODAL.appendChild(EDIT_ELEMENT);
 
