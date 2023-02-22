@@ -27,7 +27,7 @@ function showModal() {
     document.querySelector('.modal-project-gallery').style.visibility = "visible";
     document.querySelector('.modal-box-list').style.visibility = "visible";
     document.querySelector('.modal-project-gallery').style.visibility = "visible";
-
+    document.querySelector('.returnModal').style.visibility = "hidden";
 
 }
 
@@ -36,15 +36,31 @@ function showModal() {
 function hideModal() {
 
 
-
     document.querySelector('.modal').style.visibility = "hidden";
     document.querySelector('.modal-box').style.visibility = "hidden";
     document.querySelector('.modal-project-gallery').style.visibility = "hidden";
-    document.querySelector('.modal-project-remove-confirm').style.visibility = "hidden";
+    document.querySelector('.returnModal').style.visibility = "hidden";
     document.querySelector('.modal-box-list').style.visibility = "hidden";
     document.querySelector('.modal-add-project').style.visibility = "hidden";
-    const list = document.getElementById("modal-project-remove-confirm-img");
-    list.removeChild(list.firstElementChild);
+    document.querySelector('.modal-project-remove-confirm').style.visibility = "hidden";
+
+
+
+}
+
+function returnModal() {
+
+
+    document.querySelector('.modal').style.visibility = "visible";
+    document.querySelector('.modal-box').style.visibility = "visible";
+    document.querySelector('.modal-project-gallery').style.visibility = "visible";
+    document.querySelector('.modal-box-list').style.visibility = "visible";
+    document.querySelector('.modal-box-list').style.visibility = "visible";
+    document.querySelector('.returnModal').style.visibility = "hidden";
+    document.querySelector('.modal-add-project').style.visibility = "hidden";
+    document.querySelector('.modal-project-remove-confirm').style.visibility = "hidden";
+
+
 
 }
 
@@ -141,6 +157,21 @@ function genererProjectModal(projectModal) {
                         },
                     });
                 })
+
+                function clearRemove() {
+
+                document.getElementById("modal-project-remove-confirm-img").innerHTML = "";
+
+
+                }
+
+                const HIDE_DISPLAY_MODAL = document.getElementById('hideModal')
+
+                HIDE_DISPLAY_MODAL.addEventListener('click',  clearRemove );
+
+                const RETURN_DISPLAY_MODAL = document.getElementById('returnModal')
+
+                RETURN_DISPLAY_MODAL.addEventListener('click',  clearRemove );
             }
             else {
                 console.log("Une erreur est survenue dans la supréssion des projects");
@@ -154,6 +185,7 @@ function genererProjectModal(projectModal) {
 
         document.querySelector('.modal-project-remove-confirm').style.visibility = "visible";
         console.log("Page confirmation de supréssion")
+        document.querySelector('.returnModal').style.visibility = "visible";
 
     }
 
@@ -162,8 +194,11 @@ function genererProjectModal(projectModal) {
         document.querySelector('.modal-box').style.visibility = "visible";
         document.querySelector('.modal-project-remove-confirm').style.visibility = "hidden";
         console.log("Page confirmation de supréssion")
-
+        document.querySelector('.returnModal').style.visibility = "visible";
     }
+
+
+
 }
 
 // Afficher la modal
@@ -187,6 +222,13 @@ HIDE_DISPLAY_MODAL.addEventListener('click',  hideModal );
 const HIDE_DISPLAY_MODAL2 = document.getElementById('hideModal2')
 
 HIDE_DISPLAY_MODAL2.addEventListener('click',  hideModal );
+
+// Retour dans la modal
+
+const RETURN_DISPLAY_MODAL = document.getElementById('returnModal')
+
+RETURN_DISPLAY_MODAL.addEventListener('click',  returnModal );
+
 // Bouton ajouter une nouvelle photo
 
 const NEW_PROJECT_BOX = document.getElementById("add-project");
@@ -197,7 +239,7 @@ NEW_PROJECT_BOX.addEventListener("click", function () {
     document.querySelector('.modal-project-gallery').style.visibility = "hidden";
     document.querySelector('.modal-box-list').style.visibility = "hidden";
     document.querySelector('.modal-add-project').style.visibility = "visible";
-
+    document.querySelector('.returnModal').style.visibility = "visible";
 });
 
 

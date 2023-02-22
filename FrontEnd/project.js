@@ -257,15 +257,15 @@ BOUTON_HOTEL.addEventListener("click", function () {
 
 
 BOUTON_ALL.addEventListener("click", function () {
-  const projetcsFiltre4 = PROJECTS.filter(function (project) {
-    return projects
+  const PROJECT_FILTRE_4 = PROJECTS.filter(function (project) {
+    return PROJECTS
   });
 
-  console.log(projetcsFiltre4)
+  console.log(PROJECT_FILTRE_4)
 
   document.querySelector(".gallery").innerHTML = "";
 
-  genererProject(projetcsFiltre4);
+  genererProject(PROJECT_FILTRE_4);
 
 });
 

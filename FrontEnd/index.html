@@ -28,107 +28,114 @@
 
 		<div class="modal" id="hideModal2"></div>
 
-			<div class="modal-box" id="modal-close">
+		<div class="modal-box" id="modal-close">
 
 
-				<button class="hidemodal" id="hideModal"><i class="fa-sharp fa-solid fa-xmark"></i>
+			<button class="hidemodal" id="hideModal"><i class="fa-sharp fa-solid fa-xmark"></i>
 
-					<h2>Fermer la modal</h2>
+				<h2>Fermer la modal</h2>
+
+			</button>
+
+			<button class="returnModal" id="returnModal"><i class="fa-solid fa-arrow-left"></i>
+
+				<h2>Fermer la modal</h2>
+
+			</button>
+
+
+			<div class="modal-project-gallery">
+
+				<h2>Galerie photo</h2>
+
+				<div class="modal-box-list"> </div>
+
+				<button class="add-project" id="add-project">
+
+					<h3>Ajouter une photo</h3>
+
+				</button>
+				<br>
+				<button class="del-projects" id="del-projects">Supprimer la galerie</button>
+
+			</div>
+
+
+			<div class="modal-project-remove-confirm">
+
+				<div class="modal-project-remove-confirm-img" id="modal-project-remove-confirm-img"></div>
+
+				<h2>Êtes-vous sur de vouloir supprimer ce projet?</h2>
+
+				<button class="add-project" id="remove-confirmation">
+
+					<h3>Supprimer la photo</h3>
+
+				</button>
+
+			</div>
+
+			<div class="modal-add-project">
+
+				<div class="modal-project-remove-confirm-img"></div>
+
+				<h2>Ajout photo</h2>
+
+
+				<br>
+				<div id="modal-remove-message"></div>
+				<br>
+
+				<div class="img-to-add">
+
+					<img src="" alt="" id="img-added">
+
+					<div class="img-to-add-content" id="img-to-add-content">
+
+						<i class="fa-regular fa-image" id="logo-image-add"></i>
+
+
+						<div class="file-input"><input type="file" id="btn-add-img" accept="image/*"></input>
+							<h2>+ Ajouter une photo</h2>
+						</div>
+
+
+
+						<h4>jpg, png : 4mo max</h4>
+
+					</div>
+				</div>
+
+
+
+				<form method="post" name="newProject">
+
+					<label class="input-project-title">Titre</label>
+					<br>
+					<input type="text" class="input-project-title" id="title"></input>
+					<br>
+					<label class="log-name">Catégorie</label>
+					<br>
+					<select class="category-choice" name="project-category" id="category">
+						<option value="0"></option>
+						<option value="1">Objets</option>
+						<option value="2">Appartements</option>
+						<option value="3">Hôtel & restaurants</option>
+
+					</select>
+					<br>
+				</form>
+
+				<button type="submit" class="add-project" id="add-confirmation2">
+
+					<h3>Valider</h3>
 
 				</button>
 
 
-
-
-				<div class="modal-project-gallery">
-
-					<h2>Galerie photo</h2>
-
-					<div class="modal-box-list"> </div>
-
-					<button class="add-project" id="add-project">
-
-						<h3>Ajouter une photo</h3>
-
-					</button>
-					<br>
-					<button class="del-projects" id="del-projects">Supprimer la galerie</button>
-
-				</div>
-
-
-				<div class="modal-project-remove-confirm">
-
-					<div class="modal-project-remove-confirm-img" id="modal-project-remove-confirm-img"></div>
-
-					<h2>Êtes-vous sur de vouloir supprimer ce projet?</h2>
-
-					<button class="add-project" id="remove-confirmation">
-
-						<h3>Supprimer la photo</h3>
-
-					</button>
-
-				</div>
-
-				<div class="modal-add-project">
-
-					<div class="modal-project-remove-confirm-img"></div>
-
-					<h2>Ajout photo</h2>
-
-
-<br>
-<div  id="modal-remove-message"></div>
-<br>
-
-					<div class="img-to-add">
-
-						<img src="" alt="" id="img-added">
-
-						<div class="img-to-add-content" id="img-to-add-content">
-
-							<i class="fa-regular fa-image" id="logo-image-add"></i>
-
-							<input type="file" id="btn-add-img" accept="image/*"></input>
-
-
-
-							<h4>jpg, png : 4mo max</h4>
-
-						</div>
-					</div>
-
-
-
-					<form method="post" name="newProject">
-
-						<label class="input-project-title">Titre</label>
-						<br>
-						<input type="text" class="input-project-title" id="title"></input>
-						<br>
-						<label class="log-name">Catégorie</label>
-						<br>
-						<select class="category-choice" name="project-category" id="category">
-							<option value="0"></option>
-							<option value="1">Objets</option>
-							<option value="2">Appartements</option>
-							<option value="3">Hôtel & restaurants</option>
-
-						</select>
-						<br>
-					</form>
-
-					<button type="submit" class="add-project" id="add-confirmation2">
-
-						<h3>Valider</h3>
-
-					</button>
-
-
-				</div>
-
 			</div>
+
+		</div>
 
 		</div>
 
@@ -191,7 +198,7 @@
 				</article>
 			</section>
 			<section id="portfolio">
-				
+
 
 
 				<div class="project-btn-modif">
@@ -200,8 +207,8 @@
 
 					<div id="filtre-btn-modif"></div>
 
-			
-					</div>
+
+				</div>
 
 				<div class="box-filtre">
 					<button class="btn-filtre" id="btn-filtrer4">Tous</button>
