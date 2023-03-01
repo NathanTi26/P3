@@ -156,7 +156,10 @@ function genererProjectModal(projectModal) {
 
                         },
                     });
-                })
+                    window.location.reload();
+                
+                }
+                )
 
                 function clearRemove() {
 
@@ -172,6 +175,7 @@ function genererProjectModal(projectModal) {
                 const RETURN_DISPLAY_MODAL = document.getElementById('returnModal')
 
                 RETURN_DISPLAY_MODAL.addEventListener('click',  clearRemove );
+
             }
             else {
                 console.log("Une erreur est survenue dans la supréssion des projects");
@@ -334,7 +338,7 @@ NEW_PROJECT.addEventListener("click", async function (e) {
     body: FORM_DATA
 
     })}
-
+    window.location.reload();
 });
 
 
