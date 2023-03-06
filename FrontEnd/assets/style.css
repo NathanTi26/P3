@@ -677,8 +677,7 @@ width: 100%;
 background-color: #E8F1F7;
 margin-top: 36px;
 margin-bottom: 30px;
-
-
+flex-direction: column;
 
 
 }
@@ -956,7 +955,7 @@ img#img-added{
 
 max-height: 169px;
 max-width: 129px;
-margin-left: 150px;
+margin: auto;
 
 }
 button.del-projects{

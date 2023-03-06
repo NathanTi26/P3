@@ -1,5 +1,13 @@
+let PROJECTS;
+
+(async function (){
+
 const REPONSE = await fetch('http://localhost:5678/api/works');
-const PROJECTS = await REPONSE.json();
+PROJECTS = await REPONSE.json();
+
+genererProject(PROJECTS); // Premier affichage de la page
+})()
+
 
 // Bouton filtre Objet
 
@@ -27,27 +35,48 @@ const DISPLAY_FORM = document.getElementById('displayform')
 DISPLAY_FORM.addEventListener('click', showForm);
 
 
+let lastProjectId;
+
+function generateProjectGlobal(articleGlobal){
+
+
+  const ID_ELEMENT = articleGlobal.id;
+  lastProjectId = articleGlobal.id;
+
+  const SECTION_FICHES = document.querySelector(".gallery");
+  const PROJECT_ELEMENT = document.createElement("figure");
+  PROJECT_ELEMENT.setAttribute("id", "element-" + ID_ELEMENT);
+  const IMAGE_ELEMENT = document.createElement("img");
+  IMAGE_ELEMENT.crossOrigin = "anonymous";
+  IMAGE_ELEMENT.src = articleGlobal.imageUrl;
+  const NOM_ELEMENT = document.createElement("figcaption");
+  NOM_ELEMENT.innerText = articleGlobal.title;
+
+  SECTION_FICHES.appendChild(PROJECT_ELEMENT);
+  PROJECT_ELEMENT.appendChild(IMAGE_ELEMENT);
+  PROJECT_ELEMENT.appendChild(NOM_ELEMENT);
+
+}
+
+
 
 function genererProject(projectfiltres) {
 
   for (let i = 0; i < projectfiltres.length; i++) {
 
-    const ARTICLE = projectfiltres[i];
+    generateProjectGlobal(projectfiltres[i]);
 
 
-    const SECTION_FICHES = document.querySelector(".gallery");
-    const PROJECT_ELEMENT = document.createElement("figure");
-    const IMAGE_ELEMENT = document.createElement("img");
-    IMAGE_ELEMENT.crossOrigin = "anonymous";
-    IMAGE_ELEMENT.src = ARTICLE.imageUrl;
-    const NOM_ELEMENT = document.createElement("figcaption");
-    NOM_ELEMENT.innerText = ARTICLE.title;
-    SECTION_FICHES.appendChild(PROJECT_ELEMENT);
-    PROJECT_ELEMENT.appendChild(IMAGE_ELEMENT);
-    PROJECT_ELEMENT.appendChild(NOM_ELEMENT);
+    if(i == projectfiltres.length -1){
+
+  
+      console.log(lastProjectId)
+  
+    }
 
   }
 }
+
 
 // Supréssion du TOKEN
 
@@ -117,11 +146,13 @@ function IfTokenOk(){
     <i class="fa-regular fa-pen-to-square"></i> 
     Modifier
   </button>`;
+
      const BTN_LOGOUT = document.getElementById("logout"); 
 
      BTN_LOGOUT.addEventListener("click", function () {
 
       removeToken()
+      
     });
   }
 
@@ -200,7 +231,7 @@ document.getElementById("btn-log").addEventListener("click", async function (e) 
 }
 );
 
-genererProject(PROJECTS); // Premier affichage de la page
+
 
 
 const TOKEN = getToken()

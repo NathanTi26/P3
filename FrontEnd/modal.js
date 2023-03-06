@@ -1,5 +1,15 @@
+let PROJECTS_MODAL;
+
+(async function (){
+
 const REPONSE_MODAL = await fetch('http://localhost:5678/api/works');
-const PROJECTS_MODAL = await REPONSE_MODAL.json();
+PROJECTS_MODAL = await REPONSE_MODAL.json();
+
+genererProjectModal(PROJECTS_MODAL); // Premier affichage MODAL
+
+})()
+
+
 
 const message_img = document.createElement("message");
 const message = document.getElementById("modal-remove-message");
@@ -10,9 +20,6 @@ function getToken() {
     const TOKEN = localStorage.getItem("token");
     return TOKEN;
 }
-
-
-genererProjectModal(PROJECTS_MODAL);
 
 
 ////// MODAL /////
@@ -70,140 +77,171 @@ e.stopPropagation()
 
 }
 
+
+
+function generateProject(articleModal){
+
+    const ID_ELEMENT = articleModal.id;
+
+    const SECTION_FICHES_MODAL = document.querySelector(".modal-box-list");
+    const PROJECT_ELEMENT_MODAL = document.createElement("figure");
+    PROJECT_ELEMENT_MODAL.setAttribute("id", "toremove-" + ID_ELEMENT);
+    const IMAGE_ELEMENT_MODAL = document.createElement("img");
+    IMAGE_ELEMENT_MODAL.crossOrigin = "anonymous";
+    IMAGE_ELEMENT_MODAL.src = articleModal.imageUrl;
+    // const MOOVE_ELEMENT = document.createElement("button-modal-box");
+    const DELETE_ELEMENT = document.createElement("button-modal-box");
+    const EDIT_ELEMENT = document.createElement("button-modal-box");
+
+
+
+    // MOOVE_ELEMENT.innerHTML = `<button class="modal-modif-place"><i class="fa-solid fa-arrows-up-down-left-right"></i></button>`;
+    // MOOVE_ELEMENT.setAttribute("id", "place-" + ID_ELEMENT);
+    DELETE_ELEMENT.innerHTML = `<button class="modal-modif-remove" name="remove"><i class="fa-solid fa-trash-can"></i></button>`;
+    DELETE_ELEMENT.setAttribute("id", "remove-" + ID_ELEMENT);
+    EDIT_ELEMENT.innerHTML = `<button class="modal-modif-edit">éditer</button>`;
+    EDIT_ELEMENT.setAttribute("id", "edit-" + ID_ELEMENT);
+    SECTION_FICHES_MODAL.appendChild(PROJECT_ELEMENT_MODAL);
+    PROJECT_ELEMENT_MODAL.appendChild(IMAGE_ELEMENT_MODAL);
+    IMAGE_ELEMENT_MODAL.setAttribute("id", "image-project-" + ID_ELEMENT);
+    // PROJECT_ELEMENT_MODAL.appendChild(MOOVE_ELEMENT);
+    PROJECT_ELEMENT_MODAL.appendChild(DELETE_ELEMENT);
+    PROJECT_ELEMENT_MODAL.appendChild(EDIT_ELEMENT);
+
+
+
+    let boutonRemoveId = document.getElementById("remove-" + ID_ELEMENT);
+
+    let projectRemoveId = document.getElementById("image-project-" + ID_ELEMENT);
+
+
+
+    boutonRemoveId.addEventListener("click", async function getRemovedId() {
+
+
+        let ID_TO_REMOVE = boutonRemoveId.id.split("-", 2)[1]
+
+        let PROJECT_REMOVE = projectRemoveId.src
+        let PROJECT_TO_REMOVE_IMG = PROJECT_REMOVE
+
+        console.log(ID_TO_REMOVE);
+
+        console.log(PROJECT_TO_REMOVE_IMG);
+
+        if (ID_TO_REMOVE !== null) {
+
+            console.log("ID OK");
+
+            removedSectionOpen()
+
+            document.querySelector('.modal-project-gallery').style.visibility = "hidden";
+
+
+            let imageElementRemove = document.createElement("img");
+            imageElementRemove.crossOrigin = "anonymous";
+            imageElementRemove.src = PROJECT_TO_REMOVE_IMG;
+
+            document.querySelector('.modal-project-remove-confirm-img').appendChild(imageElementRemove);
+
+
+            let boutonRemoveProject = document.getElementById("remove-confirmation");
+
+            boutonRemoveProject.addEventListener("click", function removeProject() {
+
+                console.log("Mettre ici la supréssion du project " + ID_TO_REMOVE);
+
+
+
+                fetch("http://localhost:5678/api/works" + "/" + ID_TO_REMOVE, {
+
+                    method: "DELETE",
+
+                    headers: {
+
+                        Authorization: "Bearer" + " " + getToken(),
+                        "Content-Type": "application/json;charset=utf-8",
+
+                    },
+                });
+
+                const delProjectModal = document.getElementById("toremove-" + ID_TO_REMOVE);
+                delProjectModal.remove();
+
+                const delProjectGlobal = document.getElementById("element-" + ID_TO_REMOVE);
+                delProjectGlobal.remove();
+
+                let menu = document.getElementById('modal-project-remove-confirm-img');
+                menu.removeChild(menu.firstElementChild);
+
+                returnModal()
+
+
+            })
+
+
+            delete ID_TO_REMOVE;
+
+            console.log(ID_TO_REMOVE)
+
+            const HIDE_DISPLAY_MODAL = document.getElementById('hideModal')
+
+            HIDE_DISPLAY_MODAL.addEventListener('click',  clearRemove );
+
+            const RETURN_DISPLAY_MODAL = document.getElementById('returnModal')
+
+            RETURN_DISPLAY_MODAL.addEventListener('click',  clearRemove );
+
+
+
+        }
+        else {
+            console.log("Une erreur est survenue dans la supréssion des projects");
+        }
+    })
+
+
+
+}
+
+function removedSectionOpen() {
+
+    document.querySelector('.modal-project-remove-confirm').style.visibility = "visible";
+    console.log("Page confirmation de supréssion")
+    document.querySelector('.returnModal').style.visibility = "visible";
+
+}
+
+function removedSectionBack() {
+
+    document.querySelector('.modal-box').style.visibility = "visible";
+    document.querySelector('.modal-project-remove-confirm').style.visibility = "hidden";
+    console.log("Page confirmation de supréssion")
+    document.querySelector('.returnModal').style.visibility = "visible";
+}
+
+
 // Fonction d'affichage de la liste des projets dans la modal
 
 function genererProjectModal(projectModal) {
 
     for (let i = 0; i < projectModal.length; i++) {
 
-        const ARTICLE = projectModal[i];
-        const SECTION_FICHES_MODAL = document.querySelector(".modal-box-list");
-        const PROJECT_ELEMENT_MODAL = document.createElement("figure");
-        const IMAGE_ELEMENT_MODAL = document.createElement("img");
-        IMAGE_ELEMENT_MODAL.crossOrigin = "anonymous";
-        IMAGE_ELEMENT_MODAL.src = ARTICLE.imageUrl;
-        const MOOVE_ELEMENT = document.createElement("button-modal-box");
-        const DELETE_ELEMENT = document.createElement("button-modal-box");
-        const EDIT_ELEMENT = document.createElement("button-modal-box");
-        const ID_ELEMENT = ARTICLE.id;
+        generateProject(projectModal[i]);
 
-
-        // MOOVE_ELEMENT.innerHTML = `<button class="modal-modif-place"><i class="fa-solid fa-arrows-up-down-left-right"></i></button>`;
-        // MOOVE_ELEMENT.setAttribute("id", "place-" + ID_ELEMENT);
-        DELETE_ELEMENT.innerHTML = `<button class="modal-modif-remove" name="remove"><i class="fa-solid fa-trash-can"></i></button>`;
-        DELETE_ELEMENT.setAttribute("id", "remove-" + ID_ELEMENT);
-        EDIT_ELEMENT.innerHTML = `<button class="modal-modif-edit">éditer</button>`;
-        EDIT_ELEMENT.setAttribute("id", "edit-" + ID_ELEMENT);
-        SECTION_FICHES_MODAL.appendChild(PROJECT_ELEMENT_MODAL);
-        PROJECT_ELEMENT_MODAL.appendChild(IMAGE_ELEMENT_MODAL);
-        IMAGE_ELEMENT_MODAL.setAttribute("id", "image-project-" + ID_ELEMENT);
-        // PROJECT_ELEMENT_MODAL.appendChild(MOOVE_ELEMENT);
-        PROJECT_ELEMENT_MODAL.appendChild(DELETE_ELEMENT);
-        PROJECT_ELEMENT_MODAL.appendChild(EDIT_ELEMENT);
-
-
-
-        let boutonRemoveId = document.getElementById("remove-" + ID_ELEMENT);
-
-        let projectRemoveId = document.getElementById("image-project-" + ID_ELEMENT);
-
-
-
-        boutonRemoveId.addEventListener("click", async function getRemovedId() {
-
-
-            const ID_TO_REMOVE = boutonRemoveId.id.split("-", 2)[1]
-
-            const PROJECT_REMOVE = projectRemoveId.src
-            const PROJECT_TO_REMOVE_IMG = PROJECT_REMOVE
-
-            console.log(ID_TO_REMOVE);
-
-            console.log(PROJECT_TO_REMOVE_IMG);
-
-            if (ID_TO_REMOVE !== null) {
-
-                console.log("ID OK");
-
-                removedSectionOpen()
-
-                document.querySelector('.modal-project-gallery').style.visibility = "hidden";
-
-
-                let imageElementRemove = document.createElement("img");
-                imageElementRemove.crossOrigin = "anonymous";
-                imageElementRemove.src = PROJECT_TO_REMOVE_IMG;
-
-                document.querySelector('.modal-project-remove-confirm-img').appendChild(imageElementRemove);
-
-
-                let boutonRemoveProject = document.getElementById("remove-confirmation");
-
-                boutonRemoveProject.addEventListener("click", async function removeProject() {
-
-                    console.log("Mettre ici la supréssion du project " + ID_TO_REMOVE);
-
-
-
-                    fetch("http://localhost:5678/api/works" + "/" + ID_TO_REMOVE, {
-
-                        method: "DELETE",
-
-                        headers: {
-
-                            Authorization: "Bearer" + " " + getToken(),
-                            "Content-Type": "application/json;charset=utf-8",
-
-                        },
-                    });
-                    window.location.reload();
-                
-                }
-                )
-
-                function clearRemove() {
-
-                document.getElementById("modal-project-remove-confirm-img").innerHTML = "";
-
-
-                }
-
-                const HIDE_DISPLAY_MODAL = document.getElementById('hideModal')
-
-                HIDE_DISPLAY_MODAL.addEventListener('click',  clearRemove );
-
-                const RETURN_DISPLAY_MODAL = document.getElementById('returnModal')
-
-                RETURN_DISPLAY_MODAL.addEventListener('click',  clearRemove );
-
-            }
-            else {
-                console.log("Une erreur est survenue dans la supréssion des projects");
-            }
-        })
     }
 
     // Fonction ouverture confirmation supréssion
 
-    function removedSectionOpen() {
-
-        document.querySelector('.modal-project-remove-confirm').style.visibility = "visible";
-        console.log("Page confirmation de supréssion")
-        document.querySelector('.returnModal').style.visibility = "visible";
-
-    }
-
-    function removedSectionBack() {
-
-        document.querySelector('.modal-box').style.visibility = "visible";
-        document.querySelector('.modal-project-remove-confirm').style.visibility = "hidden";
-        console.log("Page confirmation de supréssion")
-        document.querySelector('.returnModal').style.visibility = "visible";
-    }
-
-
-
 }
+
+
+function clearRemove() {
+
+    document.getElementById("modal-project-remove-confirm-img").innerHTML = "";
+
+    }
+
+
 
 // Afficher la modal
 
@@ -244,15 +282,29 @@ NEW_PROJECT_BOX.addEventListener("click", function () {
     document.querySelector('.modal-box-list').style.visibility = "hidden";
     document.querySelector('.modal-add-project').style.visibility = "visible";
     document.querySelector('.returnModal').style.visibility = "visible";
+
+
 });
 
 
 
 const ADD_PREVIEW_IMAGE = document.getElementById("btn-add-img");
+
 ADD_PREVIEW_IMAGE.addEventListener('change', previewPhoto);
 
 
+
+let newWorkImagePreview;
+
 function previewPhoto() {
+
+
+
+    document.querySelector(".img-to-add").innerHTML = `
+    
+
+    
+    <img src="" alt="" id="img-added">`;
 
     const FILE_IMG =  ADD_PREVIEW_IMAGE.files;
     if (FILE_IMG) {
@@ -260,28 +312,19 @@ function previewPhoto() {
         const preview = document.getElementById('img-added');
         fileReader.onload = event => {
             preview.setAttribute('src', event.target.result);
+
+            newWorkImagePreview = event.target.result;
+
         }
 
         fileReader.readAsDataURL(FILE_IMG[0]);
 
     }
-    
-    document.getElementById('img-to-add-content').style.visibility = "hidden";
-
 
 
 
 }
    
-
-
-
-
-
-
-
-
-
 
 
 const TITLE_INPUT = document.getElementById("title");
@@ -298,6 +341,23 @@ NEW_PROJECT.addEventListener("click", async function (e) {
     FORM_DATA.append('image', ADD_PREVIEW_IMAGE.files[0]);
     FORM_DATA.append('title', TITLE_INPUT.value);
     FORM_DATA.append('category', CATEGORY_INPUT.value);
+
+    newWorkTitle = TITLE_INPUT.value;
+
+    lastProjectId ++
+
+    const newArticle = {
+
+        id: lastProjectId,
+        imageUrl: newWorkImagePreview,
+        category: newWorkTitle,
+    }
+
+    console.log(lastProjectId)
+    console.log(newWorkTitle)
+    generateProjectGlobal(newArticle)
+
+    generateProject(newArticle)
 
     if (ADD_PREVIEW_IMAGE.files[0] == null){
 
@@ -319,7 +379,6 @@ NEW_PROJECT.addEventListener("click", async function (e) {
 
                 
             }
-            
 
 
     else {
@@ -338,11 +397,18 @@ NEW_PROJECT.addEventListener("click", async function (e) {
     body: FORM_DATA
 
     })}
-    window.location.reload();
-});
+
+    returnModal(),
 
 
+    document.getElementById("newProject").reset();  
+    // document.getElementById('img-added').remove();
 
+
+}
+
+
+);
 
     const NEW_PROJECT2 = document.getElementById("del-projects");
 
@@ -359,7 +425,3 @@ NEW_PROJECT.addEventListener("click", async function (e) {
                 }
             })}
     })
-
-
-
-
