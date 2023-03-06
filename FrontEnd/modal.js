@@ -66,6 +66,15 @@ function returnModal() {
     document.querySelector('.returnModal').style.visibility = "hidden";
     document.querySelector('.modal-add-project').style.visibility = "hidden";
     document.querySelector('.modal-project-remove-confirm').style.visibility = "hidden";
+    document.querySelector('.img-to-add-content').style.visibility = "hidden";
+    clearFormNewProject();
+
+
+
+
+    console.log(FILE_IMG);
+
+
 
 
 
@@ -283,6 +292,7 @@ NEW_PROJECT_BOX.addEventListener("click", function () {
     document.querySelector('.modal-add-project').style.visibility = "visible";
     document.querySelector('.returnModal').style.visibility = "visible";
 
+    document.querySelector('.img-to-add-content').style.visibility = "visible";
 
 });
 
@@ -296,30 +306,34 @@ ADD_PREVIEW_IMAGE.addEventListener('change', previewPhoto);
 
 let newWorkImagePreview;
 
-function previewPhoto() {
+let FILE_IMG;
+
+function previewPhoto(e) {
 
 
+    document.querySelector('.img-to-add-content').style.visibility = "hidden";
 
-    document.querySelector(".img-to-add").innerHTML = `
-    
+    FILE_IMG =  ADD_PREVIEW_IMAGE.files;
 
-    
-    <img src="" alt="" id="img-added">`;
-
-    const FILE_IMG =  ADD_PREVIEW_IMAGE.files;
     if (FILE_IMG) {
-        const fileReader = new FileReader();
-        const preview = document.getElementById('img-added');
-        fileReader.onload = event => {
-            preview.setAttribute('src', event.target.result);
 
-            newWorkImagePreview = event.target.result;
+        let fileReader = new FileReader();
+
+        let preview = document.getElementById('img-added');
+
+        fileReader.onload = eventNewProject => {
+
+            preview.setAttribute('src', eventNewProject.target.result);
+
+            newWorkImagePreview = eventNewProject.target.result;
 
         }
 
         fileReader.readAsDataURL(FILE_IMG[0]);
 
     }
+
+    e.preventDefault();
 
 
 
@@ -398,17 +412,28 @@ NEW_PROJECT.addEventListener("click", async function (e) {
 
     })}
 
-    returnModal(),
+    returnModal();
 
-
-    document.getElementById("newProject").reset();  
-    // document.getElementById('img-added').remove();
+    clearFormNewProject()
 
 
 }
 
 
 );
+
+
+function clearFormNewProject(){
+
+
+    document.getElementById("newProject").reset();  
+    document.getElementById("new-project-form").reset(); 
+    document.getElementById("img-added").removeAttribute('src')
+
+    FILE_IMG = null;
+
+}
+
 
     const NEW_PROJECT2 = document.getElementById("del-projects");
 
