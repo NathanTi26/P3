@@ -1,11 +1,12 @@
 let PROJECTS_MODAL;
+let ID_TO_REMOVE;
 
-(async function (){
+(async function () {
 
-const REPONSE_MODAL = await fetch('http://localhost:5678/api/works');
-PROJECTS_MODAL = await REPONSE_MODAL.json();
+    const REPONSE_MODAL = await fetch('http://localhost:5678/api/works');
+    PROJECTS_MODAL = await REPONSE_MODAL.json();
 
-genererProjectModal(PROJECTS_MODAL); // Premier affichage MODAL
+    genererProjectModal(PROJECTS_MODAL); // Premier affichage MODAL
 
 })()
 
@@ -16,7 +17,7 @@ const message = document.getElementById("modal-remove-message");
 
 
 function getToken() {
-    
+
     const TOKEN = localStorage.getItem("token");
     return TOKEN;
 }
@@ -50,14 +51,12 @@ function hideModal() {
     document.querySelector('.modal-box-list').style.visibility = "hidden";
     document.querySelector('.modal-add-project').style.visibility = "hidden";
     document.querySelector('.modal-project-remove-confirm').style.visibility = "hidden";
-
+    document.querySelector('.img-to-add-content').style.visibility = "hidden";
 
 
 }
 
 function returnModal() {
-
-
     document.querySelector('.modal').style.visibility = "visible";
     document.querySelector('.modal-box').style.visibility = "visible";
     document.querySelector('.modal-project-gallery').style.visibility = "visible";
@@ -68,27 +67,45 @@ function returnModal() {
     document.querySelector('.modal-project-remove-confirm').style.visibility = "hidden";
     document.querySelector('.img-to-add-content').style.visibility = "hidden";
     clearFormNewProject();
-
-
-
-
-    console.log(FILE_IMG);
-
-
-
-
-
 }
 
-const stopPropagation = function (e) {
-
-e.stopPropagation()
-
+const stopPropagation = function(e) {
+    e.stopPropagation();
 }
 
 
+let boutonRemoveProject = document.getElementById("remove-confirmation");
 
-function generateProject(articleModal){
+boutonRemoveProject.addEventListener("click", function removeProject() {
+
+    console.log("Mettre ici la supression du project " + ID_TO_REMOVE);
+
+    fetch("http://localhost:5678/api/works" + "/" + ID_TO_REMOVE, {
+
+        method: "DELETE",
+
+        headers: {
+
+            Authorization: "Bearer" + " " + getToken(),
+            "Content-Type": "application/json;charset=utf-8",
+
+        },
+    });
+
+    const delProjectModal = document.getElementById("toremove-" + ID_TO_REMOVE);
+    delProjectModal.remove();
+
+    const delProjectGlobal = document.getElementById("element-" + ID_TO_REMOVE);
+    delProjectGlobal.remove();
+
+    let menu = document.getElementById('modal-project-remove-confirm-img');
+    menu.removeChild(menu.firstElementChild);
+
+    returnModal()
+});
+
+
+function generateProject(articleModal) {
 
     const ID_ELEMENT = articleModal.id;
 
@@ -128,18 +145,12 @@ function generateProject(articleModal){
     boutonRemoveId.addEventListener("click", async function getRemovedId() {
 
 
-        let ID_TO_REMOVE = boutonRemoveId.id.split("-", 2)[1]
+        ID_TO_REMOVE = boutonRemoveId.id.split("-", 2)[1]
 
         let PROJECT_REMOVE = projectRemoveId.src
         let PROJECT_TO_REMOVE_IMG = PROJECT_REMOVE
 
-        console.log(ID_TO_REMOVE);
-
-        console.log(PROJECT_TO_REMOVE_IMG);
-
         if (ID_TO_REMOVE !== null) {
-
-            console.log("ID OK");
 
             removedSectionOpen()
 
@@ -152,56 +163,17 @@ function generateProject(articleModal){
 
             document.querySelector('.modal-project-remove-confirm-img').appendChild(imageElementRemove);
 
-
-            let boutonRemoveProject = document.getElementById("remove-confirmation");
-
-            boutonRemoveProject.addEventListener("click", function removeProject() {
-
-                console.log("Mettre ici la supréssion du project " + ID_TO_REMOVE);
-
-
-
-                fetch("http://localhost:5678/api/works" + "/" + ID_TO_REMOVE, {
-
-                    method: "DELETE",
-
-                    headers: {
-
-                        Authorization: "Bearer" + " " + getToken(),
-                        "Content-Type": "application/json;charset=utf-8",
-
-                    },
-                });
-
-                const delProjectModal = document.getElementById("toremove-" + ID_TO_REMOVE);
-                delProjectModal.remove();
-
-                const delProjectGlobal = document.getElementById("element-" + ID_TO_REMOVE);
-                delProjectGlobal.remove();
-
-                let menu = document.getElementById('modal-project-remove-confirm-img');
-                menu.removeChild(menu.firstElementChild);
-
-                returnModal()
-
-
-            })
-
-
             delete ID_TO_REMOVE;
 
             console.log(ID_TO_REMOVE)
 
             const HIDE_DISPLAY_MODAL = document.getElementById('hideModal')
 
-            HIDE_DISPLAY_MODAL.addEventListener('click',  clearRemove );
+            HIDE_DISPLAY_MODAL.addEventListener('click', clearRemove);
 
             const RETURN_DISPLAY_MODAL = document.getElementById('returnModal')
 
-            RETURN_DISPLAY_MODAL.addEventListener('click',  clearRemove );
-
-
-
+            RETURN_DISPLAY_MODAL.addEventListener('click', clearRemove);
         }
         else {
             console.log("Une erreur est survenue dans la supréssion des projects");
@@ -248,7 +220,7 @@ function clearRemove() {
 
     document.getElementById("modal-project-remove-confirm-img").innerHTML = "";
 
-    }
+}
 
 
 
@@ -257,28 +229,28 @@ function clearRemove() {
 const DISPLAY_MODAL = document.getElementsByClassName('btn-modification')
 
 
-for (var i = 0 ; i < DISPLAY_MODAL.length; i++) {
-    DISPLAY_MODAL[i].addEventListener('click' , showModal , false ) ; 
- }
+for (var i = 0; i < DISPLAY_MODAL.length; i++) {
+    DISPLAY_MODAL[i].addEventListener('click', showModal, false);
+}
 
 // Masquer la modal
 
 const HIDE_DISPLAY_MODAL = document.getElementById('hideModal')
 
-HIDE_DISPLAY_MODAL.addEventListener('click',  hideModal );
+HIDE_DISPLAY_MODAL.addEventListener('click', hideModal);
 
 
 // Masquer la modal
 
 const HIDE_DISPLAY_MODAL2 = document.getElementById('hideModal2')
 
-HIDE_DISPLAY_MODAL2.addEventListener('click',  hideModal );
+HIDE_DISPLAY_MODAL2.addEventListener('click', hideModal);
 
 // Retour dans la modal
 
 const RETURN_DISPLAY_MODAL = document.getElementById('returnModal')
 
-RETURN_DISPLAY_MODAL.addEventListener('click',  returnModal );
+RETURN_DISPLAY_MODAL.addEventListener('click', returnModal);
 
 // Bouton ajouter une nouvelle photo
 
@@ -313,7 +285,7 @@ function previewPhoto(e) {
 
     document.querySelector('.img-to-add-content').style.visibility = "hidden";
 
-    FILE_IMG =  ADD_PREVIEW_IMAGE.files;
+    FILE_IMG = ADD_PREVIEW_IMAGE.files;
 
     if (FILE_IMG) {
 
@@ -338,7 +310,7 @@ function previewPhoto(e) {
 
 
 }
-   
+
 
 
 const TITLE_INPUT = document.getElementById("title");
@@ -358,7 +330,7 @@ NEW_PROJECT.addEventListener("click", async function (e) {
 
     newWorkTitle = TITLE_INPUT.value;
 
-    lastProjectId ++
+    lastProjectId++
 
     const newArticle = {
 
@@ -373,44 +345,45 @@ NEW_PROJECT.addEventListener("click", async function (e) {
 
     generateProject(newArticle)
 
-    if (ADD_PREVIEW_IMAGE.files[0] == null){
+    if (ADD_PREVIEW_IMAGE.files[0] == null) {
 
         message_img.innerHTML = `<h2> Vous devez séléctioner une image </h2>`;
         message.appendChild(message_img);
-    
-        }
-    else if (TITLE_INPUT.value == ""){
+
+    }
+    else if (TITLE_INPUT.value == "") {
 
         message_img.innerHTML = `<h2> Vous devez renseigner un titre </h2>`;
         message.appendChild(message_img);
 
-            
-        }
-        else if (CATEGORY_INPUT.value == 0){
 
-            message_img.innerHTML = `<h2> Vous devez renseigner une catégorie </h2>`;
-            message.appendChild(message_img);
+    }
+    else if (CATEGORY_INPUT.value == 0) {
 
-                
-            }
+        message_img.innerHTML = `<h2> Vous devez renseigner une catégorie </h2>`;
+        message.appendChild(message_img);
+
+
+    }
 
 
     else {
 
-    for(var pair of FORM_DATA.entries()) {
-        console.log(pair[0]+ ', '+ pair[1]);
-     }
+        for (var pair of FORM_DATA.entries()) {
+            console.log(pair[0] + ', ' + pair[1]);
+        }
 
-    fetch('http://localhost:5678/api/works', {
-    method: 'POST',
-    headers: {
-    'accept': 'application/json',
-    'Authorization': `Bearer` + " " + getToken(),
-    },
+        fetch('http://localhost:5678/api/works', {
+            method: 'POST',
+            headers: {
+                'accept': 'application/json',
+                'Authorization': `Bearer` + " " + getToken(),
+            },
 
-    body: FORM_DATA
+            body: FORM_DATA
 
-    })}
+        })
+    }
 
     returnModal();
 
@@ -423,11 +396,11 @@ NEW_PROJECT.addEventListener("click", async function (e) {
 );
 
 
-function clearFormNewProject(){
+function clearFormNewProject() {
 
 
-    document.getElementById("newProject").reset();  
-    document.getElementById("new-project-form").reset(); 
+    document.getElementById("newProject").reset();
+    document.getElementById("new-project-form").reset();
     document.getElementById("img-added").removeAttribute('src')
 
     FILE_IMG = null;
@@ -435,18 +408,19 @@ function clearFormNewProject(){
 }
 
 
-    const NEW_PROJECT2 = document.getElementById("del-projects");
+const NEW_PROJECT2 = document.getElementById("del-projects");
 
-    NEW_PROJECT2.addEventListener("click", function () {
+NEW_PROJECT2.addEventListener("click", function () {
 
-        fetch('http://localhost:5678/api/works')
+    fetch('http://localhost:5678/api/works')
 
-        for (let i = 0; i < PROJECTS_MODAL.length; i++) {
-            fetch('http://localhost:5678/api/works' + "/" + PROJECTS_MODAL[i].id, {
-                method: "DELETE",
-                headers: {
-                    'Authorization': "Bearer " + getToken(),
-                    'Content-type': 'application/json'
-                }
-            })}
-    })
+    for (let i = 0; i < PROJECTS_MODAL.length; i++) {
+        fetch('http://localhost:5678/api/works' + "/" + PROJECTS_MODAL[i].id, {
+            method: "DELETE",
+            headers: {
+                'Authorization': "Bearer " + getToken(),
+                'Content-type': 'application/json'
+            }
+        })
+    }
+})
