@@ -1,20 +1,44 @@
-let projectsModalList;
+let PROJECTS_MODAL_LIST;
 let ID_TO_REMOVE;
-
-(async function () {
-
-    const modalAnswerWorks = await fetch('http://localhost:5678/api/works');
-    projectsModalList = await modalAnswerWorks.json();
-
-    genererProjectModal(projectsModalList); // Premier affichage MODAL
-
-})()
-
 
 
 const MESSAGE_IMG = document.createElement("message");
 const MESSAGE = document.getElementById("modal-remove-message");
 
+const ADD_PREVIEW_IMAGE = document.getElementById("btn-add-img");
+
+const DISPLAY_MODAL = document.getElementsByClassName('btn-modification')
+
+const NEW_PROJECT_BOX = document.getElementById("add-project");
+
+const DELETE_PROJECT = document.getElementById("del-projects");
+
+
+// Masquer la modal
+
+const hideDisplayModal = document.getElementById('hideModal')
+hideDisplayModal.addEventListener('click', hideModal);
+
+
+// Masquer la modal
+
+const HIDE_DISPLAY_MODAL2 = document.getElementById('hideModal2')
+HIDE_DISPLAY_MODAL2.addEventListener('click', hideModal);
+
+// Retour dans la modal
+
+const returnDisplayModal = document.getElementById('returnModal')
+returnDisplayModal.addEventListener('click', returnModal);
+
+
+(async function () {
+
+    const modalAnswerWorks = await fetch('http://localhost:5678/api/works');
+    PROJECTS_MODAL_LIST = await modalAnswerWorks.json();
+
+    genererProjectModal(PROJECTS_MODAL_LIST); // Premier affichage MODAL
+
+})()
 
 function getToken() {
 
@@ -30,12 +54,7 @@ function clearAddMessageError(){
     
     console.log("Clear Message Error")
     
-    }
-
-////// MODAL /////
-
-
-// Fonction du bouton d'affichage de la modal
+}
 
 function showModal() {
 
@@ -48,13 +67,6 @@ function showModal() {
 
 }
 
-// Fonction du bouton dde fermeture de la modal
-
-const ADD_PREVIEW_IMAGE = document.getElementById("btn-add-img");
-
-ADD_PREVIEW_IMAGE.addEventListener('change', previewPhoto);
-
-
 function removePreview(){
 
     ADD_PREVIEW_IMAGE.value = null;
@@ -62,6 +74,8 @@ function removePreview(){
 console.log("Preview remove")
 
 }
+
+ADD_PREVIEW_IMAGE.addEventListener('change', previewPhoto);
 
 function hideModal() {
 
@@ -97,10 +111,6 @@ function returnModal() {
 
 }
 
-const stopPropagation = function(e) {
-    e.stopPropagation();
-}
-
 
 let boutonRemoveProject = document.getElementById("remove-confirmation");
 
@@ -126,7 +136,7 @@ boutonRemoveProject.addEventListener("click", function removeProject() {
     const delProjectGlobal = document.getElementById("element-" + ID_TO_REMOVE);
     delProjectGlobal.remove();
 
-    let menu = document.getElementById('modal-project-remove-confirm-img');
+    const menu = document.getElementById('modal-project-remove-confirm-img');
     menu.removeChild(menu.firstElementChild);
 
     returnModal()
@@ -135,43 +145,37 @@ boutonRemoveProject.addEventListener("click", function removeProject() {
 
 function generateProject(articleModal) {
 
-    const ID_ELEMENT = articleModal.id;
+    const elementId = articleModal.id;
 
-    const SECTION_FICHES_MODAL = document.querySelector(".modal-box-list");
-    const PROJECT_ELEMENT_MODAL = document.createElement("figure");
-    PROJECT_ELEMENT_MODAL.setAttribute("id", "toremove-" + ID_ELEMENT);
-    const IMAGE_ELEMENT_MODAL = document.createElement("img");
-    IMAGE_ELEMENT_MODAL.crossOrigin = "anonymous";
-    IMAGE_ELEMENT_MODAL.src = articleModal.imageUrl;
+    const sectionFichesModal = document.querySelector(".modal-box-list");
+    const projectElementModal = document.createElement("figure");
+    projectElementModal.setAttribute("id", "toremove-" + elementId);
+    const imageElementModal = document.createElement("img");
+    imageElementModal.crossOrigin = "anonymous";
+    imageElementModal.src = articleModal.imageUrl;
     // const MOOVE_ELEMENT = document.createElement("button-modal-box");
-    const DELETE_ELEMENT = document.createElement("button-modal-box");
-    const EDIT_ELEMENT = document.createElement("button-modal-box");
+    const deleteElement = document.createElement("button-modal-box");
+    const editElement = document.createElement("button-modal-box");
 
 
 
     // MOOVE_ELEMENT.innerHTML = `<button class="modal-modif-place"><i class="fa-solid fa-arrows-up-down-left-right"></i></button>`;
-    // MOOVE_ELEMENT.setAttribute("id", "place-" + ID_ELEMENT);
-    DELETE_ELEMENT.innerHTML = `<button class="modal-modif-remove" name="remove"><i class="fa-solid fa-trash-can"></i></button>`;
-    DELETE_ELEMENT.setAttribute("id", "remove-" + ID_ELEMENT);
-    EDIT_ELEMENT.innerHTML = `<button class="modal-modif-edit">éditer</button>`;
-    EDIT_ELEMENT.setAttribute("id", "edit-" + ID_ELEMENT);
-    SECTION_FICHES_MODAL.appendChild(PROJECT_ELEMENT_MODAL);
-    PROJECT_ELEMENT_MODAL.appendChild(IMAGE_ELEMENT_MODAL);
-    IMAGE_ELEMENT_MODAL.setAttribute("id", "image-project-" + ID_ELEMENT);
-    // PROJECT_ELEMENT_MODAL.appendChild(MOOVE_ELEMENT);
-    PROJECT_ELEMENT_MODAL.appendChild(DELETE_ELEMENT);
-    PROJECT_ELEMENT_MODAL.appendChild(EDIT_ELEMENT);
+    // MOOVE_ELEMENT.setAttribute("id", "place-" + elementId);
+    deleteElement.innerHTML = `<button class="modal-modif-remove" name="remove"><i class="fa-solid fa-trash-can"></i></button>`;
+    deleteElement.setAttribute("id", "remove-" + elementId);
+    editElement.innerHTML = `<button class="modal-modif-edit">éditer</button>`;
+    editElement.setAttribute("id", "edit-" + elementId);
+    sectionFichesModal.appendChild(projectElementModal);
+    projectElementModal.appendChild(imageElementModal);
+    imageElementModal.setAttribute("id", "image-project-" + elementId);
+    // projectElementModal.appendChild(MOOVE_ELEMENT);
+    projectElementModal.appendChild(deleteElement);
+    projectElementModal.appendChild(editElement);
 
-
-
-    let boutonRemoveId = document.getElementById("remove-" + ID_ELEMENT);
-
-    let projectRemoveId = document.getElementById("image-project-" + ID_ELEMENT);
-
-
+    let boutonRemoveId = document.getElementById("remove-" + elementId);
+    let projectRemoveId = document.getElementById("image-project-" + elementId);
 
     boutonRemoveId.addEventListener("click", async function getRemovedId() {
-
 
         ID_TO_REMOVE = boutonRemoveId.id.split("-", 2)[1]
 
@@ -195,13 +199,6 @@ function generateProject(articleModal) {
 
             console.log(ID_TO_REMOVE)
 
-            const HIDE_DISPLAY_MODAL = document.getElementById('hideModal')
-
-            HIDE_DISPLAY_MODAL.addEventListener('click', clearRemove);
-
-            const RETURN_DISPLAY_MODAL = document.getElementById('returnModal')
-
-            RETURN_DISPLAY_MODAL.addEventListener('click', clearRemove);
         }
         else {
             console.log("Une erreur est survenue dans la supréssion des projects");
@@ -228,9 +225,6 @@ function removedSectionBack() {
     document.querySelector('.returnModal').style.visibility = "visible";
 }
 
-
-// Fonction d'affichage de la liste des projets dans la modal
-
 function genererProjectModal(projectModal) {
 
     for (let i = 0; i < projectModal.length; i++) {
@@ -250,39 +244,15 @@ function clearRemove() {
 
 }
 
-
-
-// Afficher la modal
-
-const DISPLAY_MODAL = document.getElementsByClassName('btn-modification')
-
-
 for (var i = 0; i < DISPLAY_MODAL.length; i++) {
     DISPLAY_MODAL[i].addEventListener('click', showModal, false);
 }
 
-// Masquer la modal
 
-const HIDE_DISPLAY_MODAL = document.getElementById('hideModal')
-
-HIDE_DISPLAY_MODAL.addEventListener('click', hideModal);
-
-
-// Masquer la modal
-
-const HIDE_DISPLAY_MODAL2 = document.getElementById('hideModal2')
-
-HIDE_DISPLAY_MODAL2.addEventListener('click', hideModal);
-
-// Retour dans la modal
-
-const RETURN_DISPLAY_MODAL = document.getElementById('returnModal')
-
-RETURN_DISPLAY_MODAL.addEventListener('click', returnModal);
 
 // Bouton ajouter une nouvelle photo
 
-const NEW_PROJECT_BOX = document.getElementById("add-project");
+
 
 NEW_PROJECT_BOX.addEventListener("click", function () {
 
@@ -333,48 +303,43 @@ function previewPhoto(e) {
 
 
 
-const TITLE_INPUT = document.getElementById("title");
-const CATEGORY_INPUT = document.getElementById("category");
+const titleInputNewProject = document.getElementById("title");
+const categoryInputNewProject = document.getElementById("category");
 
-const NEW_PROJECT = document.getElementById("add-confirmation2");
+const newProject = document.getElementById("add-confirmation2");
 
-NEW_PROJECT.addEventListener("click", async function (e) {
+newProject.addEventListener("click", async function (e) {
 
     e.preventDefault();
-
-
-
     if (ADD_PREVIEW_IMAGE.files[0] == null) {
 
         MESSAGE_IMG.innerHTML = `<h4> Vous devez séléctioner une image </h4>`;
         MESSAGE.appendChild(MESSAGE_IMG);
 
     }
-    else if (TITLE_INPUT.value == "") {
+    else if (titleInputNewProject.value == "") {
 
         MESSAGE_IMG.innerHTML = `<h4> Vous devez renseigner un titre </h4>`;
         MESSAGE.appendChild(MESSAGE_IMG);
 
 
     }
-    else if (CATEGORY_INPUT.value == 0) {
+    else if (categoryInputNewProject.value == 0) {
 
         MESSAGE_IMG.innerHTML = `<h4> Vous devez renseigner une catégorie </h4>`;
         MESSAGE.appendChild(MESSAGE_IMG);
 
 
     }
-
-
     else {
 
         const FORM_DATA = new FormData()
 
         FORM_DATA.append('image', ADD_PREVIEW_IMAGE.files[0]);
-        FORM_DATA.append('title', TITLE_INPUT.value);
-        FORM_DATA.append('category', CATEGORY_INPUT.value);
+        FORM_DATA.append('title', titleInputNewProject.value);
+        FORM_DATA.append('category', categoryInputNewProject.value);
     
-        let newWorkTitle = TITLE_INPUT.value;
+        let newWorkTitle = titleInputNewProject.value;
     
         lastProjectId++
     
@@ -385,10 +350,7 @@ NEW_PROJECT.addEventListener("click", async function (e) {
             title: newWorkTitle,
         }
     
-        console.log(lastProjectId)
-        console.log(newWorkTitle)
         generateProjectGlobal(newArticle)
-    
         generateProject(newArticle)
 
         for (var pair of FORM_DATA.entries()) {
@@ -407,22 +369,13 @@ NEW_PROJECT.addEventListener("click", async function (e) {
         })
 
         returnModal();
-
         removePreviewImg()
 
     }
-
-
-
-
-}
-
-
-);
+});
 
 
 function removePreviewImg() {
-
 
     document.getElementById("newProject").reset();
     document.getElementById("new-project-form").reset();
@@ -432,15 +385,12 @@ function removePreviewImg() {
 
 }
 
-
-const NEW_PROJECT2 = document.getElementById("del-projects");
-
-NEW_PROJECT2.addEventListener("click", function () {
+DELETE_PROJECT.addEventListener("click", function () {
 
     fetch('http://localhost:5678/api/works')
 
-    for (let i = 0; i < projectsModalList.length; i++) {
-        fetch('http://localhost:5678/api/works' + "/" + projectsModalList[i].id, {
+    for (let i = 0; i < PROJECTS_MODAL_LIST.length; i++) {
+        fetch('http://localhost:5678/api/works' + "/" + PROJECTS_MODAL_LIST[i].id, {
             method: "DELETE",
             headers: {
                 'Authorization': "Bearer " + getToken(),
