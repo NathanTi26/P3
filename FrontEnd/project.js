@@ -221,45 +221,45 @@ IfTokenOk()
 // Bouton filtre Objet
 
 btnFilterObject.addEventListener("click", function () {
-  const PROJECT_FILTRE_1 = PROJECTS.filter(function (project) {
+  const projectFiltre1 = PROJECTS.filter(function (project) {
     return project.categoryId === 1;
   });
 
-  console.log(PROJECT_FILTRE_1)
+  console.log(projectFiltre1)
 
   document.querySelector(".gallery").innerHTML = "";
 
-  genererProject(PROJECT_FILTRE_1);
+  genererProject(projectFiltre1);
 
 });
 
 // Bouton filtre Appartement
 
 btnFilterFlat.addEventListener("click", function () {
-  const PROJECT_FILTRE_2 = PROJECTS.filter(function (project) {
+  const projectFiltre2 = PROJECTS.filter(function (project) {
     return project.categoryId === 2;
   });
 
-  console.log(PROJECT_FILTRE_2)
+  console.log(projectFiltre2)
 
   document.querySelector(".gallery").innerHTML = "";
 
-  genererProject(PROJECT_FILTRE_2);
+  genererProject(projectFiltre2);
 
 });
 
 // Bouton filtre Hotels & Restaurants
 
 btnFilterHotel.addEventListener("click", function () {
-  const PROJECT_FILTRE_3 = PROJECTS.filter(function (project) {
+  const projectFiltre3 = PROJECTS.filter(function (project) {
     return project.categoryId === 3;
   });
 
-  console.log(PROJECT_FILTRE_3)
+  console.log(projectFiltre3)
 
   document.querySelector(".gallery").innerHTML = "";
 
-  genererProject(PROJECT_FILTRE_3);
+  genererProject(projectFiltre3);
 
 });
 
@@ -267,15 +267,15 @@ btnFilterHotel.addEventListener("click", function () {
 
 
 btnFilterAll.addEventListener("click", function () {
-  const PROJECT_FILTRE_4 = PROJECTS.filter(function (project) {
+  const projectFiltre4 = PROJECTS.filter(function (project) {
     return PROJECTS
   });
 
-  console.log(PROJECT_FILTRE_4)
+  console.log(projectFiltre4)
 
   document.querySelector(".gallery").innerHTML = "";
 
-  genererProject(PROJECT_FILTRE_4);
+  genererProject(projectFiltre4);
 
 });
 
