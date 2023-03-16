@@ -175,8 +175,16 @@ function getUserLog() {
 
 }
 
+const MESSAGE_LOG_ERROR = document.createElement("message");
+const MESSAGELOG = document.getElementById("connexion-error-message");
+
 function showErrorMsg() {
-  alert("Erreur dans l'identifiant ou le mot de passe");
+
+    MESSAGE_LOG_ERROR.innerHTML = `<h4> Erreur dans l'indentifiant ou le mot de passe </h4>`;
+    MESSAGELOG.appendChild(MESSAGE_LOG_ERROR);
+    
+    console.log("Clear Message Error")
+
 }
 
 document.getElementById("btn-log").addEventListener("click", async function (e) {

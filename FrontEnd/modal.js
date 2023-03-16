@@ -75,8 +75,6 @@ console.log("Preview remove")
 
 }
 
-ADD_PREVIEW_IMAGE.addEventListener('change', previewPhoto);
-
 function hideModal() {
 
     removePreview()
@@ -111,6 +109,7 @@ function returnModal() {
 
 }
 
+ADD_PREVIEW_IMAGE.addEventListener('change', previewPhoto);
 
 let boutonRemoveProject = document.getElementById("remove-confirmation");
 

@@ -669,6 +669,18 @@ margin-top: 30px;
 
 }
 
+.connexion-box h4{
+
+	font-family: 'Work Sans';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 30px;
+	text-align: center;
+	color: red;
+
+}
+
 .modal-add-project h4{
 
 	font-family: 'Work Sans';
