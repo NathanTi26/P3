@@ -1,19 +1,19 @@
-let PROJECTS_MODAL;
+let projectsModalList;
 let ID_TO_REMOVE;
 
 (async function () {
 
-    const REPONSE_MODAL = await fetch('http://localhost:5678/api/works');
-    PROJECTS_MODAL = await REPONSE_MODAL.json();
+    const modalAnswerWorks = await fetch('http://localhost:5678/api/works');
+    projectsModalList = await modalAnswerWorks.json();
 
-    genererProjectModal(PROJECTS_MODAL); // Premier affichage MODAL
+    genererProjectModal(projectsModalList); // Premier affichage MODAL
 
 })()
 
 
 
-const message_img = document.createElement("message");
-const message = document.getElementById("modal-remove-message");
+const MESSAGE_IMG = document.createElement("message");
+const MESSAGE = document.getElementById("modal-remove-message");
 
 
 function getToken() {
@@ -22,6 +22,15 @@ function getToken() {
     return TOKEN;
 }
 
+
+function clearAddMessageError(){
+
+    MESSAGE_IMG.innerHTML = ``;
+    MESSAGE.appendChild(MESSAGE_IMG);
+    
+    console.log("Clear Message Error")
+    
+    }
 
 ////// MODAL /////
 
@@ -41,9 +50,24 @@ function showModal() {
 
 // Fonction du bouton dde fermeture de la modal
 
+const ADD_PREVIEW_IMAGE = document.getElementById("btn-add-img");
+
+ADD_PREVIEW_IMAGE.addEventListener('change', previewPhoto);
+
+
+function removePreview(){
+
+    ADD_PREVIEW_IMAGE.value = null;
+
+console.log("Preview remove")
+
+}
+
 function hideModal() {
 
-
+    removePreview()
+    clearAddMessageError()
+    removePreviewImg();
     document.querySelector('.modal').style.visibility = "hidden";
     document.querySelector('.modal-box').style.visibility = "hidden";
     document.querySelector('.modal-project-gallery').style.visibility = "hidden";
@@ -51,22 +75,26 @@ function hideModal() {
     document.querySelector('.modal-box-list').style.visibility = "hidden";
     document.querySelector('.modal-add-project').style.visibility = "hidden";
     document.querySelector('.modal-project-remove-confirm').style.visibility = "hidden";
-
+    document.querySelector('.img-to-add-content').style.visibility = "hidden";
 
 
 }
 
 function returnModal() {
+
+    removePreview()
+    clearAddMessageError()
+    removePreviewImg();
     document.querySelector('.modal').style.visibility = "visible";
     document.querySelector('.modal-box').style.visibility = "visible";
     document.querySelector('.modal-project-gallery').style.visibility = "visible";
     document.querySelector('.modal-box-list').style.visibility = "visible";
-    document.querySelector('.modal-box-list').style.visibility = "visible";
+
     document.querySelector('.returnModal').style.visibility = "hidden";
     document.querySelector('.modal-add-project').style.visibility = "hidden";
     document.querySelector('.modal-project-remove-confirm').style.visibility = "hidden";
     document.querySelector('.img-to-add-content').style.visibility = "hidden";
-    clearFormNewProject();
+
 }
 
 const stopPropagation = function(e) {
@@ -263,17 +291,9 @@ NEW_PROJECT_BOX.addEventListener("click", function () {
     document.querySelector('.modal-box-list').style.visibility = "hidden";
     document.querySelector('.modal-add-project').style.visibility = "visible";
     document.querySelector('.returnModal').style.visibility = "visible";
-
     document.querySelector('.img-to-add-content').style.visibility = "visible";
 
 });
-
-
-
-const ADD_PREVIEW_IMAGE = document.getElementById("btn-add-img");
-
-ADD_PREVIEW_IMAGE.addEventListener('change', previewPhoto);
-
 
 
 let newWorkImagePreview;
@@ -322,52 +342,54 @@ NEW_PROJECT.addEventListener("click", async function (e) {
 
     e.preventDefault();
 
-    const FORM_DATA = new FormData()
 
-    FORM_DATA.append('image', ADD_PREVIEW_IMAGE.files[0]);
-    FORM_DATA.append('title', TITLE_INPUT.value);
-    FORM_DATA.append('category', CATEGORY_INPUT.value);
-
-    newWorkTitle = TITLE_INPUT.value;
-
-    lastProjectId++
-
-    const newArticle = {
-
-        id: lastProjectId,
-        imageUrl: newWorkImagePreview,
-        category: newWorkTitle,
-    }
-
-    console.log(lastProjectId)
-    console.log(newWorkTitle)
-    generateProjectGlobal(newArticle)
-
-    generateProject(newArticle)
 
     if (ADD_PREVIEW_IMAGE.files[0] == null) {
 
-        message_img.innerHTML = `<h2> Vous devez séléctioner une image </h2>`;
-        message.appendChild(message_img);
+        MESSAGE_IMG.innerHTML = `<h4> Vous devez séléctioner une image </h4>`;
+        MESSAGE.appendChild(MESSAGE_IMG);
 
     }
     else if (TITLE_INPUT.value == "") {
 
-        message_img.innerHTML = `<h2> Vous devez renseigner un titre </h2>`;
-        message.appendChild(message_img);
+        MESSAGE_IMG.innerHTML = `<h4> Vous devez renseigner un titre </h4>`;
+        MESSAGE.appendChild(MESSAGE_IMG);
 
 
     }
     else if (CATEGORY_INPUT.value == 0) {
 
-        message_img.innerHTML = `<h2> Vous devez renseigner une catégorie </h2>`;
-        message.appendChild(message_img);
+        MESSAGE_IMG.innerHTML = `<h4> Vous devez renseigner une catégorie </h4>`;
+        MESSAGE.appendChild(MESSAGE_IMG);
 
 
     }
 
 
     else {
+
+        const FORM_DATA = new FormData()
+
+        FORM_DATA.append('image', ADD_PREVIEW_IMAGE.files[0]);
+        FORM_DATA.append('title', TITLE_INPUT.value);
+        FORM_DATA.append('category', CATEGORY_INPUT.value);
+    
+        let newWorkTitle = TITLE_INPUT.value;
+    
+        lastProjectId++
+    
+        const newArticle = {
+    
+            id: lastProjectId,
+            imageUrl: newWorkImagePreview,
+            title: newWorkTitle,
+        }
+    
+        console.log(lastProjectId)
+        console.log(newWorkTitle)
+        generateProjectGlobal(newArticle)
+    
+        generateProject(newArticle)
 
         for (var pair of FORM_DATA.entries()) {
             console.log(pair[0] + ', ' + pair[1]);
@@ -383,11 +405,14 @@ NEW_PROJECT.addEventListener("click", async function (e) {
             body: FORM_DATA
 
         })
+
+        returnModal();
+
+        removePreviewImg()
+
     }
 
-    returnModal();
 
-    clearFormNewProject()
 
 
 }
@@ -396,7 +421,7 @@ NEW_PROJECT.addEventListener("click", async function (e) {
 );
 
 
-function clearFormNewProject() {
+function removePreviewImg() {
 
 
     document.getElementById("newProject").reset();
@@ -414,8 +439,8 @@ NEW_PROJECT2.addEventListener("click", function () {
 
     fetch('http://localhost:5678/api/works')
 
-    for (let i = 0; i < PROJECTS_MODAL.length; i++) {
-        fetch('http://localhost:5678/api/works' + "/" + PROJECTS_MODAL[i].id, {
+    for (let i = 0; i < projectsModalList.length; i++) {
+        fetch('http://localhost:5678/api/works' + "/" + projectsModalList[i].id, {
             method: "DELETE",
             headers: {
                 'Authorization': "Bearer " + getToken(),

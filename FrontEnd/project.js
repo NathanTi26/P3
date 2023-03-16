@@ -9,21 +9,25 @@ genererProject(PROJECTS); // Premier affichage de la page
 })()
 
 
+let lastProjectId;
+
+const TOKEN = getToken()
+
 // Bouton filtre Objet
 
-const BOUTON_OBJECT = document.getElementById("btn-filtrer");
+const btnFilterObject = document.getElementById("btn-filtrer");
 
 // Bouton filtre Appartement
 
-const BOUTON_FLAT = document.getElementById("btn-filtrer2");
+const btnFilterFlat = document.getElementById("btn-filtrer2");
 
 // Bouton filtre Hotels & Restaurants
 
-const BOUTON_HOTEL = document.getElementById("btn-filtrer3");
+const btnFilterHotel = document.getElementById("btn-filtrer3");
 
 // Bouton filtre Tous
 
-const BOUTON_ALL = document.getElementById("btn-filtrer4");
+const btnFilterAll = document.getElementById("btn-filtrer4");
 
 // Gestion couleur des filtres actifs
 
@@ -31,30 +35,26 @@ const filter = document.querySelectorAll('.btn-filtre')
 
 // Affichage de la connexion
 
-const DISPLAY_FORM = document.getElementById('displayform')
-DISPLAY_FORM.addEventListener('click', showForm);
-
-
-let lastProjectId;
+const btnDisplayForm = document.getElementById('displayform')
+btnDisplayForm.addEventListener('click', showForm);
 
 function generateProjectGlobal(articleGlobal){
 
-
-  const ID_ELEMENT = articleGlobal.id;
+  const idElementGlobal = articleGlobal.id;
   lastProjectId = articleGlobal.id;
 
-  const SECTION_FICHES = document.querySelector(".gallery");
-  const PROJECT_ELEMENT = document.createElement("figure");
-  PROJECT_ELEMENT.setAttribute("id", "element-" + ID_ELEMENT);
-  const IMAGE_ELEMENT = document.createElement("img");
-  IMAGE_ELEMENT.crossOrigin = "anonymous";
-  IMAGE_ELEMENT.src = articleGlobal.imageUrl;
-  const NOM_ELEMENT = document.createElement("figcaption");
-  NOM_ELEMENT.innerText = articleGlobal.title;
+  const sectionFicheGlobal = document.querySelector(".gallery");
+  const projectElementGlobal = document.createElement("figure");
+  projectElementGlobal.setAttribute("id", "element-" + idElementGlobal);
+  const imageElementGlobal = document.createElement("img");
+  imageElementGlobal.crossOrigin = "anonymous";
+  imageElementGlobal.src = articleGlobal.imageUrl;
+  const nomElementGlobal = document.createElement("figcaption");
+  nomElementGlobal.innerText = articleGlobal.title;
 
-  SECTION_FICHES.appendChild(PROJECT_ELEMENT);
-  PROJECT_ELEMENT.appendChild(IMAGE_ELEMENT);
-  PROJECT_ELEMENT.appendChild(NOM_ELEMENT);
+  sectionFicheGlobal.appendChild(projectElementGlobal);
+  projectElementGlobal.appendChild(imageElementGlobal);
+  projectElementGlobal.appendChild(nomElementGlobal);
 
 }
 
@@ -77,32 +77,22 @@ function genererProject(projectfiltres) {
   }
 }
 
-
 // Supréssion du TOKEN
 
 function removeToken(){
 
   localStorage.removeItem("token", TOKEN);
-
   window.location.reload();
-  
   console.log("Token remove")
 
 }
 
-
-// On récupère le token
-
 function getToken(){
 
   let TOKEN = localStorage.getItem("token");
-
   return TOKEN;
 
 }
-
-// Check du TOKEN
-
 
 function IfTokenOk(){
 
@@ -163,16 +153,12 @@ function IfTokenOk(){
   }
 }
 
-// Affichage de la box de connexion
-
 function showForm() {
 
   document.querySelector('.hiddensection').classList.toggle('hidden');
   document.querySelector('.connexion-box').classList.toggle('visible');
 
 }
-
-// Récupération des informations de connexion
 
 function getUserLog() {
 
@@ -196,7 +182,6 @@ function showErrorMsg() {
 document.getElementById("btn-log").addEventListener("click", async function (e) {
 
   e.preventDefault();
-
 
   let user = getUserLog()
   fetch('http://localhost:5678/api/users/login', {
@@ -231,17 +216,11 @@ document.getElementById("btn-log").addEventListener("click", async function (e) 
 }
 );
 
-
-
-
-const TOKEN = getToken()
-
 IfTokenOk()
-
 
 // Bouton filtre Objet
 
-BOUTON_OBJECT.addEventListener("click", function () {
+btnFilterObject.addEventListener("click", function () {
   const PROJECT_FILTRE_1 = PROJECTS.filter(function (project) {
     return project.categoryId === 1;
   });
@@ -256,7 +235,7 @@ BOUTON_OBJECT.addEventListener("click", function () {
 
 // Bouton filtre Appartement
 
-BOUTON_FLAT.addEventListener("click", function () {
+btnFilterFlat.addEventListener("click", function () {
   const PROJECT_FILTRE_2 = PROJECTS.filter(function (project) {
     return project.categoryId === 2;
   });
@@ -271,7 +250,7 @@ BOUTON_FLAT.addEventListener("click", function () {
 
 // Bouton filtre Hotels & Restaurants
 
-BOUTON_HOTEL.addEventListener("click", function () {
+btnFilterHotel.addEventListener("click", function () {
   const PROJECT_FILTRE_3 = PROJECTS.filter(function (project) {
     return project.categoryId === 3;
   });
@@ -287,7 +266,7 @@ BOUTON_HOTEL.addEventListener("click", function () {
 // Bouton filtre Tous
 
 
-BOUTON_ALL.addEventListener("click", function () {
+btnFilterAll.addEventListener("click", function () {
   const PROJECT_FILTRE_4 = PROJECTS.filter(function (project) {
     return PROJECTS
   });
@@ -300,14 +279,7 @@ BOUTON_ALL.addEventListener("click", function () {
 
 });
 
-
-
-
-
-
 // Gestion couleur des filtres actifs
-
-
 
 for (let allFilter of filter) {
 
