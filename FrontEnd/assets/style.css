@@ -113,6 +113,12 @@ body {
 
 }
 
+a {
+
+cursor: pointer;
+
+}
+
 ol,
 ul {
 	list-style: none;
@@ -366,7 +372,11 @@ footer nav ul {
 	text-align: left;
 
 }
+button {
 
+	cursor: pointer;
+
+}
 
 .log-btn {
 

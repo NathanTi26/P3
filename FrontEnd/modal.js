@@ -1,6 +1,6 @@
 let PROJECTS_MODAL_LIST;
 let ID_TO_REMOVE;
-
+let reponseId;
 
 const MESSAGE_IMG = document.createElement("message");
 const MESSAGE = document.getElementById("modal-remove-message");
@@ -77,9 +77,10 @@ console.log("Preview remove")
 
 function hideModal() {
 
-    removePreview()
-    clearAddMessageError()
+    removePreview();
+    clearAddMessageError();
     removePreviewImg();
+
     document.querySelector('.modal').style.visibility = "hidden";
     document.querySelector('.modal-box').style.visibility = "hidden";
     document.querySelector('.modal-project-gallery').style.visibility = "hidden";
@@ -89,14 +90,14 @@ function hideModal() {
     document.querySelector('.modal-project-remove-confirm').style.visibility = "hidden";
     document.querySelector('.img-to-add-content').style.visibility = "hidden";
 
-
 }
 
 function returnModal() {
 
-    removePreview()
-    clearAddMessageError()
+    removePreview();
+    clearAddMessageError();
     removePreviewImg();
+
     document.querySelector('.modal').style.visibility = "visible";
     document.querySelector('.modal-box').style.visibility = "visible";
     document.querySelector('.modal-project-gallery').style.visibility = "visible";
@@ -139,6 +140,7 @@ boutonRemoveProject.addEventListener("click", function removeProject() {
     menu.removeChild(menu.firstElementChild);
 
     returnModal()
+
 });
 
 
@@ -265,9 +267,12 @@ NEW_PROJECT_BOX.addEventListener("click", function () {
 });
 
 
+
 let newWorkImagePreview;
 
 let FILE_IMG;
+
+
 
 function previewPhoto(e) {
 
@@ -296,11 +301,7 @@ function previewPhoto(e) {
 
     e.preventDefault();
 
-
-
 }
-
-
 
 const titleInputNewProject = document.getElementById("title");
 const categoryInputNewProject = document.getElementById("category");
@@ -338,40 +339,53 @@ newProject.addEventListener("click", async function (e) {
         FORM_DATA.append('title', titleInputNewProject.value);
         FORM_DATA.append('category', categoryInputNewProject.value);
     
-        let newWorkTitle = titleInputNewProject.value;
-    
-        lastProjectId++
-    
-        const newArticle = {
-    
-            id: lastProjectId,
-            imageUrl: newWorkImagePreview,
-            title: newWorkTitle,
-        }
-    
-        generateProjectGlobal(newArticle)
-        generateProject(newArticle)
+
 
         for (var pair of FORM_DATA.entries()) {
             console.log(pair[0] + ', ' + pair[1]);
         }
 
-        fetch('http://localhost:5678/api/works', {
+        let response = await fetch('http://localhost:5678/api/works', {
+
             method: 'POST',
             headers: {
                 'accept': 'application/json',
                 'Authorization': `Bearer` + " " + getToken(),
+
             },
 
             body: FORM_DATA
-
         })
 
-        returnModal();
-        removePreviewImg()
+        const reponsejson = await response.json();
 
-    }
+        let reponseId = reponsejson.id
+
+
+        let newWorkTitle = titleInputNewProject.value;
+    
+        const newArticle = {
+    
+            id: reponseId,
+            imageUrl: newWorkImagePreview,
+            title: newWorkTitle,
+
+        }
+
+
+
+        generateProjectGlobal(newArticle)
+        generateProject(newArticle)
+
+
+        returnModal();
+        removePreviewImg();
+
+        }
+
 });
+
+console.log(reponseId)
 
 
 function removePreviewImg() {
