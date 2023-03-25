@@ -6,32 +6,26 @@ const REPONSE = await fetch('http://localhost:5678/api/works');
 PROJECTS = await REPONSE.json();
 
 genererProject(PROJECTS); // Premier affichage de la page
-})()
 
+console.log(PROJECTS)
+
+
+const REPONSE2 = await fetch('http://localhost:5678/api/categories');
+PROJECTS2 = await REPONSE2.json();
+
+generateFilterBtn(PROJECTS2); // Premier affichage de la page
+
+console.log(PROJECTS2)
+
+
+
+})()
 
 let lastProjectId;
 
 const TOKEN = getToken()
 
-// Bouton filtre Objet
 
-const btnFilterObject = document.getElementById("btn-filtrer");
-
-// Bouton filtre Appartement
-
-const btnFilterFlat = document.getElementById("btn-filtrer2");
-
-// Bouton filtre Hotels & Restaurants
-
-const btnFilterHotel = document.getElementById("btn-filtrer3");
-
-// Bouton filtre Tous
-
-const btnFilterAll = document.getElementById("btn-filtrer4");
-
-// Gestion couleur des filtres actifs
-
-const filter = document.querySelectorAll('.btn-filtre')
 
 // Affichage de la connexion
 
@@ -58,21 +52,12 @@ function generateProjectGlobal(articleGlobal){
 
 }
 
-
-
 function genererProject(projectfiltres) {
 
   for (let i = 0; i < projectfiltres.length; i++) {
 
     generateProjectGlobal(projectfiltres[i]);
 
-
-    if(i == projectfiltres.length -1){
-
-  
-      console.log(lastProjectId)
-  
-    }
 
   }
 }
@@ -224,62 +209,61 @@ document.getElementById("btn-log").addEventListener("click", async function (e) 
 }
 );
 
-IfTokenOk()
+IfTokenOk();
 
-// Bouton filtre Objet
 
-btnFilterObject.addEventListener("click", function () {
-  const projectFiltre1 = PROJECTS.filter(function (project) {
-    return project.categoryId === 1;
+function getCategory(){
+
+};
+
+
+function generateFilterBtn(categoryFilter) {
+
+  for (let i = 0; i < categoryFilter.length; i++) {
+
+    generateFilterList(categoryFilter[i]);
+
+
+  }
+};
+
+function generateFilterList(filterGlobal){
+
+  const idCategory = filterGlobal.id;
+  const nameCategory = filterGlobal.name;
+  const sectionFilter = document.querySelector(".box-filtre");
+  const categoryFilter2 = document.createElement("button");
+  categoryFilter2.setAttribute("class", "btn-filtre");
+  categoryFilter2.setAttribute("id", "btn-filtrer-" + idCategory);
+  categoryFilter2.textContent = nameCategory;
+  sectionFilter.appendChild(categoryFilter2);
+
+  const btnFilter = document.getElementById("btn-filtrer-"+ idCategory);
+
+  btnFilter.addEventListener("click", function () {
+
+  idFilterCategory = btnFilter.id.split("-", 3)[1]
+
+  const projectFiltred = PROJECTS.filter(function (project) {
+
+    return project.categoryId === idCategory;
+
   });
-
-  console.log(projectFiltre1)
 
   document.querySelector(".gallery").innerHTML = "";
 
-  genererProject(projectFiltre1);
+  genererProject(projectFiltred);
+
 
 });
 
-// Bouton filtre Appartement
-
-btnFilterFlat.addEventListener("click", function () {
-  const projectFiltre2 = PROJECTS.filter(function (project) {
-    return project.categoryId === 2;
-  });
-
-  console.log(projectFiltre2)
-
-  document.querySelector(".gallery").innerHTML = "";
-
-  genererProject(projectFiltre2);
-
-});
-
-// Bouton filtre Hotels & Restaurants
-
-btnFilterHotel.addEventListener("click", function () {
-  const projectFiltre3 = PROJECTS.filter(function (project) {
-    return project.categoryId === 3;
-  });
-
-  console.log(projectFiltre3)
-
-  document.querySelector(".gallery").innerHTML = "";
-
-  genererProject(projectFiltre3);
-
-});
-
-// Bouton filtre Tous
-
+const btnFilterAll = document.getElementById("btn-filtrer-4");
 
 btnFilterAll.addEventListener("click", function () {
+
   const projectFiltre4 = PROJECTS.filter(function (project) {
     return PROJECTS
   });
-
-  console.log(projectFiltre4)
 
   document.querySelector(".gallery").innerHTML = "";
 
@@ -287,15 +271,19 @@ btnFilterAll.addEventListener("click", function () {
 
 });
 
-// Gestion couleur des filtres actifs
 
+const filter = document.querySelectorAll('.btn-filtre')
+  
 for (let allFilter of filter) {
 
   allFilter.addEventListener('click', function () {
 
     for (let filterRemove of filter) {
-      filterRemove.classList.remove('active')
+      filterRemove.setAttribute("class", "btn-filtre")
     }
-    allFilter.classList.add('active')
+    allFilter.setAttribute("class", "btn-filtre active")
   })
 }
+
+};
+

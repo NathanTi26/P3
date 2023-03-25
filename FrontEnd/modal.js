@@ -159,7 +159,6 @@ function generateProject(articleModal) {
     const editElement = document.createElement("button-modal-box");
 
 
-
     // MOOVE_ELEMENT.innerHTML = `<button class="modal-modif-place"><i class="fa-solid fa-arrows-up-down-left-right"></i></button>`;
     // MOOVE_ELEMENT.setAttribute("id", "place-" + elementId);
     deleteElement.innerHTML = `<button class="modal-modif-remove" name="remove"><i class="fa-solid fa-trash-can"></i></button>`;
@@ -412,3 +411,4 @@ DELETE_PROJECT.addEventListener("click", function () {
         })
     }
 })
+

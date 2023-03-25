@@ -451,7 +451,7 @@ button.btn-show a {
 	flex-wrap: wrap;
 	margin-bottom: 51px;
 	justify-content: space-between;
-	gap: 10px;
+
 }
 
 button.btn-filtre {
@@ -467,7 +467,7 @@ button.btn-filtre {
 	line-height: 19px;
 	letter-spacing: 0em;
 	text-align: center;
-	padding: 0px 30px 0px 30px;
+	padding: 0px 15px 0px 15px;
 
 
 }
