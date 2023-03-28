@@ -52,7 +52,7 @@ function clearAddMessageError(){
     MESSAGE_IMG.innerHTML = ``;
     MESSAGE.appendChild(MESSAGE_IMG);
     
-    console.log("Clear Message Error")
+
     
 }
 
@@ -71,7 +71,7 @@ function removePreview(){
 
     ADD_PREVIEW_IMAGE.value = null;
 
-console.log("Preview remove")
+
 
 }
 
@@ -201,7 +201,7 @@ function generateProject(articleModal) {
 
         }
         else {
-            console.log("Une erreur est survenue dans la supréssion des projects");
+            console.log("Une erreur est survenue dans la supréssion des projets");
         }
     })
 
@@ -212,7 +212,7 @@ function generateProject(articleModal) {
 function removedSectionOpen() {
 
     document.querySelector('.modal-project-remove-confirm').style.visibility = "visible";
-    console.log("Page confirmation de supréssion")
+
     document.querySelector('.returnModal').style.visibility = "visible";
 
 }
@@ -221,7 +221,7 @@ function removedSectionBack() {
 
     document.querySelector('.modal-box').style.visibility = "visible";
     document.querySelector('.modal-project-remove-confirm').style.visibility = "hidden";
-    console.log("Page confirmation de supréssion")
+
     document.querySelector('.returnModal').style.visibility = "visible";
 }
 
